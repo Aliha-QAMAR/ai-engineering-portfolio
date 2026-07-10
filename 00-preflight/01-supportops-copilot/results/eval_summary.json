@@ -1,11 +1,14 @@
 {
-    "category_accuracy": 0.8,
-    "category_macro_f1": 0.7,
-    "priority_accuracy": 0.8,
-    "field_accuracy": 0.8,
-    "pii_pass_rate": 1.0,
-    "average_latency": 2.0003442764282227,
-    "estimated_cost_per_ticket": 0.002
+  "tickets_evaluated": 30,
+  "category_accuracy": 0.9,
+  "category_macro_f1": 0.7807,
+  "priority_accuracy": 0.8333,
+  "product_accuracy": 0.8333,
+  "refund_request_accuracy": 0.9333,
+  "field_accuracy": 0.875,
+  "pii_pass_rate": 1.0,
+  "average_latency": 0.0,
+  "median_latency": 0.0,
+  "estimated_cost_per_ticket": 0.002,
+  "estimated_cost_for_dataset": 0.06
 }
-
-

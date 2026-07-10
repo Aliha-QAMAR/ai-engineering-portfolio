@@ -1,0 +1,16 @@
+ticket_id,customer_name,ticket,category,priority
+1,Ali,I was charged twice for my order.,Billing,High
+2,Sara,My package has not arrived after 10 days.,Shipping,Medium
+3,Ahmed,I forgot my account password and cannot log in.,Account,High
+4,Ayesha,The product I received is damaged.,Returns,High
+5,Hassan,I want to change my delivery address.,Shipping,Medium
+6,Zainab,My payment keeps failing during checkout.,Payment,High
+7,Umar,I received the wrong item in my order.,Returns,High
+8,Fatima,How can I cancel my subscription?,Subscription,Medium
+9,Bilal,I want a copy of my invoice.,Billing,Low
+10,Maryam,My account has been locked after multiple login attempts.,Account,High
+11,Usman,The mobile app crashes whenever I open it.,Technical,High
+12,Hina,I haven't received my refund yet.,Billing,High
+13,Saad,I want to update my email address.,Account,Low
+14,Noor,The discount coupon is not working.,Payment,Medium
+15,Daniyal,I need to speak with a customer support agent immediately.,General,Medium

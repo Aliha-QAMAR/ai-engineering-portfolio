@@ -1,0 +1,39 @@
+
+[
+    {
+        "ticket": "My package hasn't arrived yet.",
+        "category": "Shipping",
+        "priority": "Medium"
+    },
+    {
+        "ticket": "I want a refund for my damaged product.",
+        "category": "Refund",
+        "priority": "High"
+    },
+    {
+        "ticket": "I cannot log into my account.",
+        "category": "Account",
+        "priority": "High"
+    },
+    {
+        "ticket": "The website keeps crashing.",
+        "category": "Technical",
+        "priority": "High"
+    },
+    {
+        "ticket": "Where is my order?",
+        "category": "Shipping",
+        "priority": "Low"
+    },
+
+    {
+        "ticket": "My name is Ali. My email is ali@gmail.com. My order ID is ORD12345. My package hasn't arrived.",
+        "category": "Shipping",
+        "priority": "Medium"
+    },
+    {
+        "ticket": "I want to return my damaged product. My phone number is 03001234567.",
+        "category": "Returns",
+        "priority": "High"
+    }
+]

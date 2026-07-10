@@ -1,0 +1,11 @@
+{
+    "category_accuracy": 0.8,
+    "category_macro_f1": 0.7,
+    "priority_accuracy": 0.8,
+    "field_accuracy": 0.8,
+    "pii_pass_rate": 1.0,
+    "average_latency": 2.0003442764282227,
+    "estimated_cost_per_ticket": 0.002
+}
+
+

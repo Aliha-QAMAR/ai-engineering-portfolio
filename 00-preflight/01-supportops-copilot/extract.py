@@ -55,12 +55,14 @@
 
 
 
-import os
 import json
+import os
+
 from dotenv import load_dotenv
 from groq import Groq
 from pydantic import ValidationError
 
+from pii import redact_pii
 from schemas import TicketAnalysis
 
 load_dotenv()
@@ -72,23 +74,39 @@ client = Groq(
 
 def analyze_ticket(prompt, ticket):
 
+    validation_error_message = None
+
     for attempt in range(2):
 
         try:
 
+            messages = [
+                {
+                    "role": "system",
+                    "content": prompt
+                },
+                {
+                    "role": "user",
+                    "content": ticket
+                }
+            ]
+
+            if validation_error_message is not None:
+                messages.insert(
+                    1,
+                    {
+                        "role": "system",
+                        "content": (
+                            "The previous response failed validation. Fix the issues and return only valid JSON.\n\n"
+                            f"Validation error:\n{validation_error_message}"
+                        )
+                    }
+                )
+
             response = client.chat.completions.create(
                 model="llama-3.3-70b-versatile",
                 temperature=0,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": prompt
-                    },
-                    {
-                        "role": "user",
-                        "content": ticket
-                    }
-                ]
+                messages=messages
             )
 
             content = response.choices[0].message.content.strip()
@@ -106,7 +124,7 @@ def analyze_ticket(prompt, ticket):
             content = content.strip()
 
             print("\nReturned JSON:\n")
-            print(content)
+            print(redact_pii(content))
 
             data = json.loads(content)
 
@@ -118,13 +136,15 @@ def analyze_ticket(prompt, ticket):
 
             print(f"\nAttempt {attempt+1}: Invalid JSON")
             print(e)
-            print(content)
+            print(redact_pii(content))
+            validation_error_message = f"Invalid JSON: {e}"
 
         except ValidationError as e:
 
             print(f"\nAttempt {attempt+1}: Validation failed")
             print(e)
-            print(content)
+            print(redact_pii(content))
+            validation_error_message = str(e)
 
         except Exception as e:
 

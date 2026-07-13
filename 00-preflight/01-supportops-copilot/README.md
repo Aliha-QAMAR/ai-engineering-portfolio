@@ -2,10 +2,13 @@
 
 SupportOps Copilot is a ticket analysis app for classifying support issues, estimating priority and SLA risk, detecting PII, and drafting a safe reply. The dashboard and CLI both return JSON so results can be consumed by tools or saved into files.
 
+The app now includes a sign-in / sign-up flow, role-based views, a themed error page, and session timeout handling.
+
 ## Project structure
 
 - `dashboard.py` - Streamlit UI for single-ticket analysis
 - `cli.py` - command line interface that prints JSON output
+- `app.py` - authenticated Streamlit router with role-based navigation
 - `schemas.py` - Pydantic schema for model output
 - `extract.py` - LLM call and JSON validation
 - `pii.py` - email, phone, and address detection/redaction helpers
@@ -16,8 +19,18 @@ SupportOps Copilot is a ticket analysis app for classifying support issues, esti
 ## Run the app
 
 ```bash
-streamlit run dashboard.py
+streamlit run app.py
 ```
+
+Demo accounts:
+
+- `admin@supportops.local` / `Admin123!`
+- `agent@supportops.local` / `Agent123!`
+
+Keyboard shortcut on the ticket form:
+
+- `Ctrl+Enter` on Windows
+- `Cmd+Enter` on macOS
 
 ## Run the CLI
 
@@ -46,6 +59,16 @@ Running `python evaluate.py` on the labeled 30-ticket dataset currently reports:
 - Estimated cost for the 30-ticket dataset: $0.06
 
 The evaluation script also writes `results/eval_summary.json`, `results/latency_cost_summary.json`, `results/sample_outputs.jsonl`, and `results/confusion_matrix.png`.
+
+## Role-based views
+
+- Agents see the ticket intake flow.
+- Admins see the intake flow, the batch dashboard, and the evaluation view.
+- If the session expires, the app clears the user state and shows a themed sign-in message.
+
+## Error pages
+
+The app includes a custom themed 404 page and a session-expired state instead of the default framework error screen.
 
 ## Tests
 

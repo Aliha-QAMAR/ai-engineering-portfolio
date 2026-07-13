@@ -1,95 +1,70 @@
 ZERO_SHOT_PROMPT = """
 You are a customer support ticket classifier.
 
-Classify the support ticket into one of these categories:
-- Billing
-- Shipping
-- Account
-- Payment
-- Returns
-- Subscription
-- Technical
-- General
-
-Return only valid JSON with:
-- category
-- priority
-- sentiment
-- sla_risk
+Return only valid JSON using this schema:
+{
+  "category": "billing | technical_bug | account_access | refund | shipping | feature_request | other",
+  "priority": "low | medium | high | urgent",
+  "sentiment": "negative | neutral | positive",
+  "sla_risk": true,
+  "product": "string or null",
+  "customer_request": "string",
+  "missing_information": ["string"],
+  "refund_request": true,
+  "pii_detected": ["email", "phone", "address"],
+  "safe_reply": "string",
+  "confidence": 0.0
+}
 """
 
 DETAILED_PROMPT = """
 You are an expert customer support classifier.
 
-Definitions:
+Classify the ticket into one of these categories:
+- billing
+- technical_bug
+- account_access
+- refund
+- shipping
+- feature_request
+- other
 
-Billing:
-Payment, refund, invoice or charges.
+Use these priorities:
+- low
+- medium
+- high
+- urgent
 
-Shipping:
-Delivery, tracking, address changes.
+Use these sentiments:
+- negative
+- neutral
+- positive
 
-Account:
-Login, password, account access.
+Rules:
+- sla_risk must be true for urgent or high-risk tickets, otherwise false.
+- refund_request must be true when the customer is asking for a refund, chargeback, reversal, or money back.
+- pii_detected must include any of: email, phone, address.
+- customer_request should summarize the customer's main request in one short sentence.
+- missing_information should list what is needed before action can be completed.
+- safe_reply should be a concise, policy-safe reply.
+- confidence must be a number from 0.0 to 1.0.
 
-Payment:
-Checkout or payment processing failures.
-
-Returns:
-Damaged or incorrect products.
-
-Subscription:
-Plans, cancellation or renewal.
-
-Technical:
-App, website or software issues.
-
-General:
-Everything else.
-
-Classify the ticket.
-Only use these values.
-
-Categories:
-Billing
-Shipping
-Account
-Payment
-Returns
-Subscription
-Technical
-General
-
-Priorities:
-Low
-Medium
-High
-Urgent
-
-Sentiments:
-Positive
-Neutral
-Negative
-
-SLA Risk:
-Low
-Medium
-High
-
-Return ONLY valid JSON.
-
+Return ONLY valid JSON with this exact structure:
 {
-  "category":"",
-  "priority":"",
-  "sentiment":"",
-  "sla_risk":"",
-  "customer_name":"",
-  "order_id":"",
-  "email":"",
-  "phone":"",
-  "contains_pii":true
+  "category": "billing | technical_bug | account_access | refund | shipping | feature_request | other",
+  "priority": "low | medium | high | urgent",
+  "sentiment": "negative | neutral | positive",
+  "sla_risk": true,
+  "product": "string or null",
+  "customer_request": "string",
+  "missing_information": ["string"],
+  "refund_request": true,
+  "pii_detected": ["email", "phone", "address"],
+  "safe_reply": "string",
+  "confidence": 0.0
 }
 """
+
 FEW_SHOT_PROMPT = """
 You are a customer support classifier.
 
@@ -100,13 +75,18 @@ I was charged twice.
 
 Output:
 {
- "category":"Billing",
- "priority":"High",
- "sentiment":"Negative",
- "sla_risk":"High"
+  "category": "billing",
+  "priority": "high",
+  "sentiment": "negative",
+  "sla_risk": true,
+  "product": "checkout",
+  "customer_request": "The customer wants the duplicate charge reviewed.",
+  "missing_information": ["order_id"],
+  "refund_request": true,
+  "pii_detected": [],
+  "safe_reply": "Thanks for reaching out. We are reviewing your refund request and will next verify the order or payment details.",
+  "confidence": 0.91
 }
-
-----------------------
 
 Example 2
 
@@ -115,13 +95,18 @@ My package hasn't arrived.
 
 Output:
 {
- "category":"Shipping",
- "priority":"Medium",
- "sentiment":"Negative",
- "sla_risk":"Medium"
+  "category": "shipping",
+  "priority": "medium",
+  "sentiment": "negative",
+  "sla_risk": false,
+  "product": "order",
+  "customer_request": "The customer wants help locating the missing package.",
+  "missing_information": ["order_id"],
+  "refund_request": false,
+  "pii_detected": [],
+  "safe_reply": "Thanks for the update. We are checking the shipment status and will confirm what information we still need from you.",
+  "confidence": 0.87
 }
-
-----------------------
 
 Example 3
 
@@ -130,39 +115,18 @@ The mobile app crashes.
 
 Output:
 {
- "category":"Technical",
- "priority":"High",
- "sentiment":"Negative",
- "sla_risk":"High"
+  "category": "technical_bug",
+  "priority": "high",
+  "sentiment": "negative",
+  "sla_risk": true,
+  "product": "mobile app",
+  "customer_request": "The customer wants the app crash fixed.",
+  "missing_information": ["device_model", "app_version"],
+  "refund_request": false,
+  "pii_detected": [],
+  "safe_reply": "Thanks for reporting this issue. We are reviewing the bug and will follow up with the next safe troubleshooting steps.",
+  "confidence": 0.9
 }
 
-Now classify the next ticket.
-
-Only use these categories:
-Billing
-Shipping
-Account
-Payment
-Returns
-Subscription
-Technical
-General
-
-Only use these priorities:
-Low
-Medium
-High
-Urgent
-
-Only use these sentiments:
-Positive
-Neutral
-Negative
-
-Only use these SLA risk values:
-Low
-Medium
-High
-
-Return ONLY valid JSON.
+Now classify the next ticket and return only valid JSON.
 """

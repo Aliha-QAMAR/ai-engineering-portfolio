@@ -1,0 +1,4 @@
+timestamp,username,category,priority,sentiment,sla_risk,product,customer_request,missing_information,refund_request,pii_detected,safe_reply,confidence
+2026-07-12T13:28:15,tasmeet,other,medium,neutral,False,,I have a general question about your support process.,,False,,Thanks for contacting support. We are reviewing your request and will follow up with the next steps.,0.82
+2026-07-12T14:11:52.930855,ALIHA,shipping,medium,negative,False,,i lost me parcel,order_id;shipping_address,False,,Thanks for the update. We are checking the shipment status and will confirm what information we still need from you.,0.82
+2026-07-12T15:06:56.641162,alihaaa,refund,medium,negative,False,,i want my money back,order_id;payment_reference,True,,Thanks for reaching out. We are reviewing your refund request and will next verify the order or payment details.,0.82

@@ -1,0 +1,309 @@
+/* Clean Premium Typography & Theme Palette */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-warm-ivory: #FAF8F5;
+    --card-stone: #F3EFE9;
+    --border-stone: #DFDAD0;
+    --text-graphite: #2C2F2B;
+    --text-muted: #6B7068;
+    --accent-sage: #606C5A;
+    --accent-teal: #3E6B6B;
+    --accent-teal-hover: #2C4D4D;
+    --accent-coral: #D98A7B;
+    --font-heading: 'Lora', serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Hide Streamlit default chrome headers, footers & menus */
+header, footer, [data-testid="stHeader"], [data-testid="stToolbar"] {
+    display: none !important;
+}
+
+/* Base Body overrides */
+.stApp {
+    background-color: var(--bg-warm-ivory) !important;
+    color: var(--text-graphite) !important;
+    font-family: var(--font-body) !important;
+}
+
+/* Sidebar Custom Styling */
+section[data-testid="stSidebar"] {
+    background-color: var(--card-stone) !important;
+    border-right: 1px solid var(--border-stone) !important;
+    width: 250px !important;
+}
+
+section[data-testid="stSidebar"] * {
+    font-family: var(--font-body) !important;
+}
+
+/* Sidebar active navigation and branding details */
+.sidebar-brand {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-graphite);
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--border-stone);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+/* Custom cards with soft shadow and rounded corners */
+.premium-card {
+    background-color: #ffffff !important;
+    border: 1px solid var(--border-stone) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 12px rgba(44, 47, 43, 0.02) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.premium-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 16px rgba(44, 47, 43, 0.04) !important;
+    border-color: var(--accent-sage) !important;
+}
+
+.premium-card-header {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-graphite);
+    margin-bottom: 0.75rem;
+}
+
+/* Heading Typography */
+h1, h2, h3, .heading-serif {
+    font-family: var(--font-heading) !important;
+    color: var(--text-graphite) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+}
+
+h1 {
+    font-size: 2.25rem !important;
+    margin-bottom: 1rem !important;
+}
+
+h2 {
+    font-size: 1.75rem !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+/* Button restyling */
+.stButton > button, .stDownloadButton > button {
+    background-color: var(--accent-teal) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--accent-teal) !important;
+    border-radius: 8px !important;
+    font-family: var(--font-body) !important;
+    font-weight: 500 !important;
+    font-size: 0.9rem !important;
+    padding: 0.5rem 1.25rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 4px rgba(62, 107, 107, 0.1) !important;
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 40px !important;
+}
+
+.stButton > button:hover, .stDownloadButton > button:hover {
+    background-color: var(--accent-teal-hover) !important;
+    border-color: var(--accent-teal-hover) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(62, 107, 107, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.stButton > button:active, .stDownloadButton > button:active {
+    transform: translateY(0) !important;
+}
+
+/* Secondary outline button style */
+.button-secondary button, .button-secondary .stDownloadButton button {
+    background-color: transparent !important;
+    color: var(--text-graphite) !important;
+    border: 1px solid var(--border-stone) !important;
+    box-shadow: none !important;
+}
+
+.button-secondary button:hover, .button-secondary .stDownloadButton button:hover {
+    background-color: var(--card-stone) !important;
+    border-color: var(--text-graphite) !important;
+    color: var(--text-graphite) !important;
+}
+
+/* Warning style buttons */
+.button-warning button, .button-warning .stDownloadButton button {
+    background-color: var(--accent-coral) !important;
+    border-color: var(--accent-coral) !important;
+    color: #ffffff !important;
+}
+
+.button-warning button:hover, .button-warning .stDownloadButton button:hover {
+    background-color: #c97566 !important;
+    border-color: #c97566 !important;
+    color: #ffffff !important;
+}
+
+/* Navigation items styling */
+.nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.6rem 0.8rem !important;
+    color: var(--text-graphite) !important;
+    text-decoration: none !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.25rem !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.nav-link:hover {
+    background-color: var(--border-stone) !important;
+    padding-left: 0.95rem !important;
+}
+
+.nav-link.active {
+    background-color: var(--accent-sage) !important;
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+/* Chat component style overrides */
+.chat-bubble-container {
+    display: flex !important;
+    width: 100% !important;
+    margin-bottom: 1.25rem !important;
+}
+
+.chat-bubble-container.user {
+    justify-content: flex-end !important;
+}
+
+.chat-bubble-container.assistant {
+    justify-content: flex-start !important;
+}
+
+.chat-bubble {
+    max-width: 80% !important;
+    padding: 1rem 1.25rem !important;
+    border-radius: 16px !important;
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    box-shadow: 0 2px 8px rgba(44, 47, 43, 0.01) !important;
+}
+
+.chat-bubble-container.user .chat-bubble {
+    background-color: var(--card-stone) !important;
+    color: var(--text-graphite) !important;
+    border: 1px solid var(--border-stone) !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+.chat-bubble-container.assistant .chat-bubble {
+    background-color: #ffffff !important;
+    color: var(--text-graphite) !important;
+    border: 1px solid var(--border-stone) !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+.chat-timestamp {
+    font-size: 0.75rem !important;
+    color: var(--text-muted) !important;
+    margin-top: 0.35rem !important;
+    text-align: right !important;
+}
+
+/* Drag and Drop Custom styling for files */
+.drag-drop-area {
+    border: 2px dashed var(--border-stone) !important;
+    border-radius: 12px !important;
+    background-color: #ffffff !important;
+    padding: 3rem 2rem !important;
+    text-align: center !important;
+    transition: border-color 0.2s ease, background-color 0.2s ease !important;
+    cursor: pointer !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.drag-drop-area:hover {
+    border-color: var(--accent-teal) !important;
+    background-color: #fafcfc !important;
+}
+
+/* Progress bar, timeline and other animations */
+.pipeline-step {
+    border-left: 2px solid var(--border-stone) !important;
+    padding-left: 1.25rem !important;
+    position: relative !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.pipeline-step::before {
+    content: '' !important;
+    position: absolute !important;
+    left: -6px !important;
+    top: 0 !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    background-color: var(--border-stone) !important;
+}
+
+.pipeline-step.active::before {
+    background-color: var(--accent-teal) !important;
+    box-shadow: 0 0 0 3px rgba(62, 107, 107, 0.2) !important;
+}
+
+.pipeline-step.completed::before {
+    background-color: var(--accent-sage) !important;
+}
+
+.pipeline-step-title {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: var(--text-graphite) !important;
+}
+
+.pipeline-step-desc {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-stone) !important;
+    border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted) !important;
+}
+
+/* Custom Accordion overrides */
+.stAccordion {
+    background: #ffffff !important;
+    border: 1px solid var(--border-stone) !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.5rem !important;
+    overflow: hidden !important;
+}
+
+.stAccordion [data-testid="stAccordionItem"] {
+    border: none !important;
+}

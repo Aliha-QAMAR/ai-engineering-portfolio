@@ -9,15 +9,15 @@ Large documents such as research papers, reports, policies, and manuals are diff
 
 ## What it does
 
-- 📄 Upload and process PDF or text documents
-- ✂️ Split documents into semantic chunks
-- 🧠 Generate embeddings using Sentence Transformers
-- 🔍 Perform semantic similarity search
-- 🤖 Generate AI answers using retrieved context
-- 📑 Display citations for every response
-- 💬 Maintain conversation history
-- 📚 Manage uploaded document library
-- 📊 Visualize retrieval and evaluation metrics
+-  Upload and process PDF or text documents
+-  Split documents into semantic chunks
+-  Generate embeddings using Sentence Transformers
+-  Perform semantic similarity search
+-  Generate AI answers using retrieved context
+-  Display citations for every response
+-  Maintain conversation history
+-  Manage uploaded document library
+-  Visualize retrieval and evaluation metrics
 
 ---
 
@@ -231,7 +231,7 @@ streamlit run app.py
 
 ## Author
 
-**Liyaah**
+**ALIHA**
 
 Software Engineering Student | AI Engineer
 

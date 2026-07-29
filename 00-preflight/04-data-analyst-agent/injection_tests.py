@@ -22,7 +22,6 @@ def run_vulnerable_agent(user_query: str) -> str:
 
 def run_defended_agent(user_query: str) -> str:
     client = OpenAI(api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
-    # Defended System Prompt with Security Guardrails
     system_prompt = """
     You are a secure data analyst agent.
     SECURITY RULES:

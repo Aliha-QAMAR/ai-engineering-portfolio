@@ -69,15 +69,11 @@ class MemoryStore:
 
 if __name__ == "__main__":
     mem = MemoryStore()
-    # 1. Seed memories
     mem.store_memory("In sales_q3.csv, September revenue drop was caused by missing EU data.", source="sales_q3.csv")
     mem.store_memory("Product B has a higher margin than Product A.", source="margin_analysis.csv")
 
-    # 2. Retrieve memories
     query = "Why did revenue drop in September?"
     print(f"\n🔎 Searching Memory for: '{query}'")
     retrieved = mem.retrieve_memories(query)
     print("Retrieved Memories:", json.dumps(retrieved, indent=2))
-
-    # 3. Delete memory pass
     mem.delete_memory(2)

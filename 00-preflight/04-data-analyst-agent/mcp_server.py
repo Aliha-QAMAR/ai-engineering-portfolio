@@ -3,7 +3,6 @@ import asyncio
 import pandas as pd
 from tools import get_schema, group_and_aggregate, make_chart
 
-# Sample Dataset for Server Session
 GLOBAL_DF = pd.DataFrame({
     "date": ["2024-01-01", "2024-01-01", "2024-02-01", "2024-02-01"],
     "product": ["A", "B", "A", "B"],
@@ -79,7 +78,6 @@ if __name__ == "__main__":
     server = MCPServer()
     print("🚀 MCP Server Running. Listening for JSON-RPC requests...")
     
-    # Test JSON-RPC Discovery Call
     sample_request = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
     response = asyncio.run(server.process_request(sample_request))
     print("\nClient Request: tools/list")

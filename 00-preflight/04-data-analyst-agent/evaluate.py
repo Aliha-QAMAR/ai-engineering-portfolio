@@ -29,7 +29,7 @@ def run_evaluations():
     total_latency = 0.0
     invalid_tool_calls = 0
     
-    print("🧪 Running 10-Task Evaluation Benchmark...\n")
+    print(" Running 10-Task Evaluation Benchmark...\n")
     
     for task in EVAL_BENCHMARK_TASKS:
         start_time = time.time()

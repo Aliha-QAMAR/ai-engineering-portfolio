@@ -76,7 +76,7 @@ class MCPServer:
 
 if __name__ == "__main__":
     server = MCPServer()
-    print("🚀 MCP Server Running. Listening for JSON-RPC requests...")
+    print(" MCP Server Running. Listening for JSON-RPC requests...")
     
     sample_request = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "tools/list"})
     response = asyncio.run(server.process_request(sample_request))

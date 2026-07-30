@@ -32,7 +32,6 @@ class DataAnalystAgent:
         }
 
     def run(self, user_question: str) -> str:
-        # System prompt guiding strict function calling format
         messages = [
             {
                 "role": "system", 
@@ -54,8 +53,6 @@ class DataAnalystAgent:
             )
             
             msg = response.choices[0].message
-            
-            # Format assistant message properly for Groq compatibility
             assistant_msg = {
                 "role": "assistant",
                 "content": msg.content or ""

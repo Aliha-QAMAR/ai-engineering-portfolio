@@ -14,7 +14,7 @@ print("Loading sentence-transformer model...")
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 sentences = [
-    # Topic 1: AI & Technology (14 sentences)
+    # Topic 1: AI & Technology
     "Artificial intelligence is transforming industries.",
     "Machine learning algorithms find patterns in data.",
     "Neural networks are inspired by the human brain.",
@@ -30,7 +30,7 @@ sentences = [
     "Reinforcement learning is based on rewards and penalties.",
     "Quantum computing could solve complex mathematical problems.",
 
-    # Topic 2: Cooking & Food (13 sentences)
+    # Topic 2: Cooking & Food
     "Baking sourdough bread requires patience and a starter.",
     "Italian pasta is best cooked al dente.",
     "Fresh herbs like basil and oregano elevate any dish.",
@@ -97,8 +97,6 @@ if __name__ == "__main__":
     print("\n" + "="*50)
     print("RUNNING DAY 8 TEST CASES")
     print("="*50)
-
-    # Target in data: "Running daily builds cardiovascular endurance."
     test_query_1 = "jogging every morning improves heart health" 
     
     print(f"\nQuery 1: '{test_query_1}'")
@@ -106,7 +104,6 @@ if __name__ == "__main__":
     matches = tiny_semantic_search(test_query_1, top_k=3)
     for rank, (text, score) in enumerate(matches, 1):
         print(f"Rank {rank}: [Score: {score:.4f}] -> {text}")  
-    # Target in data: "A sharp chef knife makes prep work much safer."
     test_query_2 = "cooking tools that are dangerous when dull"
     
     print(f"\nQuery 2: '{test_query_2}'")

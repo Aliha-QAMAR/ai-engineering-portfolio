@@ -15,9 +15,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_allow_html=True)
 
-st.title("✨ FitCheck & Multimodal Voice Assistant")
+st.title(" FitCheck & Multimodal Voice Assistant")
 
-tab1, tab2 = st.tabs(["👗 Fit Check & Vision", "🎧 Voice Memo & Audio Assistant"])
+tab1, tab2 = st.tabs([" Fit Check & Vision", "🎧 Voice Memo & Audio Assistant"])
 
 with tab1:
     st.header("Upload Outfit or Image")

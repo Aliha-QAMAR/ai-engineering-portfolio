@@ -1,4 +1,4 @@
-/* Clean Premium Typography & Theme Palette */
+
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
 :root {
@@ -15,19 +15,15 @@
     --font-body: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* Hide Streamlit default chrome headers, footers & menus */
 header, footer, [data-testid="stHeader"], [data-testid="stToolbar"] {
     display: none !important;
 }
 
-/* Base Body overrides */
 .stApp {
     background-color: var(--bg-warm-ivory) !important;
     color: var(--text-graphite) !important;
     font-family: var(--font-body) !important;
 }
-
-/* Sidebar Custom Styling */
 section[data-testid="stSidebar"] {
     background-color: var(--card-stone) !important;
     border-right: 1px solid var(--border-stone) !important;
@@ -38,7 +34,6 @@ section[data-testid="stSidebar"] * {
     font-family: var(--font-body) !important;
 }
 
-/* Sidebar active navigation and branding details */
 .sidebar-brand {
     font-family: var(--font-heading);
     font-size: 1.25rem;
@@ -49,8 +44,6 @@ section[data-testid="stSidebar"] * {
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
 }
-
-/* Custom cards with soft shadow and rounded corners */
 .premium-card {
     background-color: #ffffff !important;
     border: 1px solid var(--border-stone) !important;
@@ -75,7 +68,6 @@ section[data-testid="stSidebar"] * {
     margin-bottom: 0.75rem;
 }
 
-/* Heading Typography */
 h1, h2, h3, .heading-serif {
     font-family: var(--font-heading) !important;
     color: var(--text-graphite) !important;
@@ -94,7 +86,6 @@ h2 {
     margin-bottom: 0.75rem !important;
 }
 
-/* Button restyling */
 .stButton > button, .stDownloadButton > button {
     background-color: var(--accent-teal) !important;
     color: #ffffff !important;
@@ -124,7 +115,6 @@ h2 {
     transform: translateY(0) !important;
 }
 
-/* Secondary outline button style */
 .button-secondary button, .button-secondary .stDownloadButton button {
     background-color: transparent !important;
     color: var(--text-graphite) !important;
@@ -151,7 +141,6 @@ h2 {
     color: #ffffff !important;
 }
 
-/* Navigation items styling */
 .nav-link {
     display: flex !important;
     align-items: center !important;
@@ -175,7 +164,6 @@ h2 {
     font-weight: 500 !important;
 }
 
-/* Chat component style overrides */
 .chat-bubble-container {
     display: flex !important;
     width: 100% !important;
@@ -219,8 +207,6 @@ h2 {
     margin-top: 0.35rem !important;
     text-align: right !important;
 }
-
-/* Drag and Drop Custom styling for files */
 .drag-drop-area {
     border: 2px dashed var(--border-stone) !important;
     border-radius: 12px !important;
@@ -236,8 +222,6 @@ h2 {
     border-color: var(--accent-teal) !important;
     background-color: #fafcfc !important;
 }
-
-/* Progress bar, timeline and other animations */
 .pipeline-step {
     border-left: 2px solid var(--border-stone) !important;
     padding-left: 1.25rem !important;
@@ -276,7 +260,6 @@ h2 {
     color: var(--text-muted) !important;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px !important;
     height: 6px !important;
@@ -294,8 +277,6 @@ h2 {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted) !important;
 }
-
-/* Custom Accordion overrides */
 .stAccordion {
     background: #ffffff !important;
     border: 1px solid var(--border-stone) !important;

@@ -2,10 +2,6 @@ import streamlit as st
 import os
 
 def inject_global_styles():
-    """
-    Reads the custom stylesheet from ui/styles.css and injects it
-    globally into the Streamlit rendering process.
-    """
     css_path = os.path.join(os.path.dirname(__file__), "styles.css")
     if os.path.exists(css_path):
         with open(css_path, "r") as f:
@@ -20,9 +16,6 @@ def inject_global_styles():
         """, unsafe_allow_html=True)
 
 def render_back_navigation(current_page: str):
-    """
-    Renders standard premium page header with back routing actions.
-    """
     col1, col2 = st.columns([7, 1])
     with col1:
         st.markdown(f"<div style='margin-bottom: 1.5rem;'></div>", unsafe_allow_html=True)
@@ -32,9 +25,6 @@ def render_back_navigation(current_page: str):
             st.rerun()
 
 def render_metric_card(title: str, value: str, subtitle: str = None, color_accent: str = "teal"):
-    """
-    Renders a premium metric display card with warm colors.
-    """
     accent_bar = "#3E6B6B" if color_accent == "teal" else ("#606C5A" if color_accent == "sage" else "#D98A7B")
     
     html = f"""
@@ -47,9 +37,6 @@ def render_metric_card(title: str, value: str, subtitle: str = None, color_accen
     st.markdown(html, unsafe_allow_html=True)
 
 def render_pipeline_visualizer(active_step: int = 0):
-    """
-    Renders an interactive-looking pipeline layout.
-    """
     steps = [
         {"name": "Document Ingestion", "desc": "Upload and extract raw text segments."},
         {"name": "Semantic Chunking", "desc": "Divide document into page-aware contexts."},

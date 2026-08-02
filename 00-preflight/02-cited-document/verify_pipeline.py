@@ -1,8 +1,6 @@
 import sys
 import os
 import datetime
-
-# Add root folder to sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from core.chunking import DocumentChunker
@@ -21,11 +19,8 @@ def main():
     engine = GroundedLLMEngine()
     
     print(f"Embedder Loaded. Fallback mode: {em.is_fallback}")
-    
-    # Clean DB
     db.clear_database()
-    
-    # 2. Simulate Ingesting a Document
+
     doc_name = "security_policy.txt"
     doc_text = (
         "Security Policy 2026.\n\f" # Page 1
@@ -43,8 +38,7 @@ def main():
     for c in chunks:
         print(f" - Chunk {c['chunk_index']} (Page {c['page_number']}): '{c['text'][:60]}...'")
         
-    embeddings = em.embed_texts([c["text"] for c in chunks])
-    
+    embeddings = em.embed_texts([c["text"] for c in chunks])  
     doc_metadata = {
         "filename": doc_name,
         "upload_date": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -58,8 +52,6 @@ def main():
     
     doc_id = db.add_document(doc_metadata, chunks, embeddings)
     print(f"Indexed document to DB with ID: {doc_id}")
-    
-    # 3. Test Retrieval - Valid Query
     query_1 = "what are the rules for passwords?"
     print(f"\nTesting Query 1: '{query_1}'")
     res_1 = retriever.retrieve(query=query_1, top_k=2, threshold=0.35)
@@ -76,8 +68,6 @@ def main():
     details_1 = engine.generate_response_details(query_1, res_1["chunks"], res_1["diagnostics"], full_answer_1)
     print(f"Confidence score: {details_1['confidence_score']}%")
     print(f"Citations count: {details_1['citation_count']}")
-    
-    # 4. Test Retrieval - Invalid Query (Refusal validation)
     query_2 = "what is the recipe for cooking pasta?"
     print(f"\nTesting Query 2 (Expect Refusal): '{query_2}'")
     res_2 = retriever.retrieve(query=query_2, top_k=2, threshold=0.45)
@@ -92,7 +82,6 @@ def main():
     details_2 = engine.generate_response_details(query_2, res_2["chunks"], res_2["diagnostics"], full_answer_2)
     print(f"Status: {details_2['grounding_status']}")
     
-    # Clean up test DB
     if os.path.exists("test_workspace.db"):
         try:
             os.remove("test_workspace.db")

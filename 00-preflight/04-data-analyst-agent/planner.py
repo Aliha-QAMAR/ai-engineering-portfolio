@@ -32,7 +32,7 @@ class PlannedAnalystAgent:
         }
 
     def generate_plan(self, question: str) -> dict:
-        prompt = f"""
+        prompt = f"""              #promt here 
 Given the question: "{question}"
 Break it down into a step-by-step checklist.
 Return ONLY a valid JSON object matching this structure:

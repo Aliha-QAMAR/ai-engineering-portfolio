@@ -66,7 +66,7 @@ Do not add markdown backticks outside JSON.
             }
 
     def replan(self, current_plan: dict, surprise_reason: str) -> dict:
-        print(f"\n⚡ [RE-PLANNING TRIGGERED] Reason: {surprise_reason}")
+        print(f"\n [RE-PLANNING TRIGGERED] Reason: {surprise_reason}")
         prompt = f"""
 Current Plan: {json.dumps(current_plan)}
 Surprise/Unexpected Result: {surprise_reason}

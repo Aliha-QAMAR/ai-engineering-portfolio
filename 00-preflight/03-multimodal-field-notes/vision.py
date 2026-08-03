@@ -38,7 +38,7 @@ def extract_image_data(image_path: str, response_schema: Type[T], prompt: str) -
     latency = round(time.time() - start_time, 2)
     data = json.loads(response.text)
     return response_schema.model_validate(data), latency
-
+# working here 
 def ask_image_question(image_path: str, question: str) -> tuple[str, float]:
     start_time = time.time()
     client = genai.Client()

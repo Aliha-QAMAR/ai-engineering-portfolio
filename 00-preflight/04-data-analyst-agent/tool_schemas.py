@@ -7,7 +7,7 @@ TOOLS_SCHEMA = [
             "parameters": {"type": "object", "properties": {}, "required": []}
         }
     },
-    {
+    {  
         "type": "function",
         "function": {
             "name": "profile_dataset",

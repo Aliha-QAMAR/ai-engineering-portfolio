@@ -125,4 +125,4 @@ def make_chart(df: pd.DataFrame, chart_type: str, x_col: str, y_col: str, title:
     plt.savefig(filename)
     plt.close(fig)
     
-    return {"status": "success", "file_path": filename}
+    return {"status": "success", "file_path": filename}  #end here 

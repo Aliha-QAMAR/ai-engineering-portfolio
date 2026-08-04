@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Letter from {{ letter['display_name'] }} — Dearly{% endblock %}
+
+{% block content %}
+<div class="unfold-wrap">
+  <article class="unfolded-letter burnt-paper">
+    <header class="unfolded-letter__header">
+      <h1 class="cursive-sub" style="font-size: 2.3rem;">{{ letter['subject'] or 'A letter for you' }}</h1>
+      <p class="unfolded-letter__meta">from <strong>{{ letter['display_name'] }}</strong> · {{ letter['created_at'][:10] }}</p>
+    </header>
+
+    <div class="unfolded-letter__body" id="letter-body-text">{{ letter['content'] }}</div>
+
+    <div class="letter-controls">
+      <button type="button" class="btn btn-ink" id="btn-read-aloud">🔊 Read Aloud</button>
+      <label class="speed-control">
+        <span>Speed</span>
+        <select id="read-speed">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+    </div>
+  </article>
+
+  <a href="{{ url_for('mailbox') }}" class="form-footnote">← Back to Mailbox</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const readBtn = document.getElementById('btn-read-aloud');
+  const speedSelect = document.getElementById('read-speed');
+  const bodyText = document.getElementById('letter-body-text').innerText;
+
+  // Read aloud action
+  readBtn.addEventListener('click', function () {
+    const speed = parseFloat(speedSelect.value);
+    const liyaah = document.getElementById('liyaah');
+    if (liyaah) liyaah.classList.remove('liyaah-spotlight', 'manual-spotlight');
+    
+    DearlySpeech.speak(bodyText, speed);
+  });
+
+  // Liyaah interactive intro
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const liyaah = document.getElementById('liyaah');
+    const bubble = document.getElementById('liyaah-bubble');
+
+    if (liyaah && bubble) {
+      // Zoom Liyaah in with manual spotlight lock
+      liyaah.classList.add('liyaah-spotlight', 'manual-spotlight');
+      bubble.innerText = "Want me to read it?";
+      
+      // Let her say it
+      setTimeout(() => {
+        DearlySpeech.speak("Want me to read it?", 1.0);
+      }, 800);
+
+      // Setup click listener on Liyaah or bubble to start reading
+      const askHandler = function(e) {
+        if (liyaah.classList.contains('liyaah-spotlight')) {
+          e.stopPropagation();
+          // Release manual spotlight lock & read text
+          liyaah.classList.remove('liyaah-spotlight', 'manual-spotlight');
+          bubble.innerText = "Let me read that for you...";
+          const speed = parseFloat(speedSelect.value);
+          DearlySpeech.speak(bodyText, speed);
+          
+          // Cleanup listeners
+          liyaah.removeEventListener('click', askHandler);
+          bubble.removeEventListener('click', askHandler);
+        }
+      };
+
+      liyaah.addEventListener('click', askHandler);
+      bubble.addEventListener('click', askHandler);
+
+      // Dismiss spotlight click anywhere else on screen
+      document.addEventListener('click', function dismissSpotlight(e) {
+        if (!liyaah.contains(e.target) && !bubble.contains(e.target)) {
+          liyaah.classList.remove('liyaah-spotlight', 'manual-spotlight');
+          bubble.innerText = "Your letters have been waiting for you.";
+          document.removeEventListener('click', dismissSpotlight);
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

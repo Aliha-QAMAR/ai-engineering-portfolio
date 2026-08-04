@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Settings — Dearly{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="letter-form-card">
+    <h1 class="form-title">Settings</h1>
+    <p class="form-subtitle">Tend to your desk however you like.</p>
+
+    <form method="POST" class="dearly-form">
+      <label>
+        About you
+        <textarea name="bio" rows="4" placeholder="A line or two about yourself">{{ me['bio'] }}</textarea>
+      </label>
+      <label>
+        New password <span class="muted">(leave blank to keep your current one)</span>
+        <input type="password" name="new_password" minlength="6" placeholder="At least 6 characters">
+      </label>
+      <label>
+        Groq API Key <span class="muted">(for handwriting text extraction and vision mood chat)</span>
+        <input type="password" name="groq_api_key" placeholder="gsk_..." value="{{ me['groq_api_key'] or '' }}">
+      </label>
+      <button type="submit" class="btn btn-ink btn-block">Save changes</button>
+    </form>
+
+    <a href="{{ url_for('logout') }}" class="form-footnote">Step away from the desk (log out)</a>
+  </div>
+</div>
+{% endblock %}

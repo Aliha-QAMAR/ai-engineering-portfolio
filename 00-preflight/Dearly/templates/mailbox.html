@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Mailbox — Dearly{% endblock %}
+
+{% block content %}
+<header class="desk-header">
+  <div>
+    <p class="eyebrow">Letters addressed to you</p>
+    <h1 class="page-title">Mailbox</h1>
+  </div>
+  <a href="{{ url_for('send_letter') }}" class="btn btn-ink">✉ Write a letter</a>
+</header>
+
+{% if letters %}
+<div class="mailbox-grid">
+  {% for l in letters %}
+    <a href="{{ url_for('letter_view', letter_id=l['id']) }}"
+       class="envelope-card {{ 'is-unread' if not l['is_read'] else 'is-read' }}">
+      {% if l['is_penpal_sender'] %}
+        <div class="envelope-flowers">🌸 🌷 🌸</div>
+      {% endif %}
+      <div class="wax-seal">{{ '✉' if not l['is_read'] else '📖' }}</div>
+      <p class="envelope-from">{{ l['display_name'] }}</p>
+      <p class="envelope-subject-line">{{ l['subject'] or '(no subject)' }}</p>
+      <p class="envelope-date">{{ l['created_at'][:10] }}</p>
+      {% if not l['is_read'] %}<span class="envelope-new-dot" title="Unread"></span>{% endif %}
+    </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-desk">
+  <p>The mailbox is empty. When someone writes to you, their sealed letter will land here.</p>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Small "breaking the seal" animation before navigating to the letter page.
+  document.querySelectorAll('.envelope-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      if (card.classList.contains('is-opening')) return;
+      e.preventDefault();
+      const href = card.getAttribute('href');
+      card.classList.add('is-opening');
+      setTimeout(function () { window.location.href = href; }, 420);
+    });
+  });
+</script>
+{% endblock %}

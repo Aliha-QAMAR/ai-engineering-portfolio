@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Register — Dearly{% endblock %}
+{% block bodyclass %}auth-body{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="letter-form-card">
+    <h1 class="form-title">Begin your first page</h1>
+    <p class="form-subtitle">A quiet desk of your own is waiting.</p>
+
+    <form method="POST" class="dearly-form">
+      <label>
+        Username
+        <input type="text" name="username" required autofocus placeholder="e.g. emma.writes" pattern="[A-Za-z0-9_.]{3,20}" title="3-20 characters: letters, numbers, dot or underscore">
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required placeholder="you@example.com">
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required minlength="6" placeholder="At least 6 characters">
+      </label>
+      <button type="submit" class="btn btn-ink btn-block">Open my desk</button>
+    </form>
+
+    <p class="form-footnote">Already writing here? <a href="{{ url_for('login') }}">Sign in</a></p>
+    <p class="form-footnote"><a href="{{ url_for('landing') }}">← Back</a></p>
+  </div>
+</div>
+{% endblock %}

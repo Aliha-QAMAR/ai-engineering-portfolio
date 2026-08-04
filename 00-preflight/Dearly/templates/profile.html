@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "_letter_card.html" import letter_card %}
+{% block title %}{{ profile_user['username'] }} — Dearly{% endblock %}
+
+{% block content %}
+<header class="profile-header">
+  <div class="person-avatar person-avatar-large">{{ profile_user['avatar_seed'] or profile_user['username'][:2]|upper }}</div>
+  <div>
+    <h1 class="page-title">{{ profile_user['username'] }}</h1>
+    <p class="profile-bio">{{ profile_user['bio'] or 'This writer has kept their page blank so far.' }}</p>
+    {% if profile_user['id'] != me['id'] %}
+      <div class="desk-actions">
+        {% if is_penpal %}
+          <span class="badge badge-penpal"> Pen Pals</span>
+        {% else %}
+          <form method="POST" action="{{ url_for('send_penpal_request', user_id=profile_user['id']) }}">
+            <button type="submit" class="btn btn-outline btn-small">Become pen pals</button>
+          </form>
+        {% endif %}
+        <a href="{{ url_for('send_letter') }}" class="btn btn-outline btn-small">✉ Send a letter</a>
+      </div>
+    {% endif %}
+  </div>
+</header>
+
+<h2>Public pages</h2>
+{% if journals %}
+<div class="paper-scatter">
+  {% for j in journals %}
+    {{ letter_card(j) }}
+  {% endfor %}
+</div>
+{% else %}
+<p class="muted">No public pages shared yet.</p>
+{% endif %}
+{% endblock %}

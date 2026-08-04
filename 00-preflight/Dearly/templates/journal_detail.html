@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ journal['title'] }} — Dearly{% endblock %}
+
+{% block content %}
+<div class="unfold-wrap">
+  <article class="unfolded-letter paper-style-{{ journal['paper_style'] }}">
+    <header class="unfolded-letter__header">
+      <h1>{{ journal['title'] }}</h1>
+      <p class="unfolded-letter__meta">from <strong>{{ journal['username'] }}</strong> · {{ journal['created_at'][:10] }}</p>
+    </header>
+
+    <div class="unfolded-letter__body" id="letter-body-text">{{ journal['content'] }}</div>
+
+    <div class="letter-controls">
+      <button type="button" class="btn btn-outline btn-small" id="btn-read-aloud">🔊 Read aloud</button>
+      <label class="speed-control">
+        Speed
+        <select id="read-speed">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2x</option>
+        </select>
+      </label>
+    </div>
+  </article>
+
+  <section class="replies-section">
+    <h2>Replies</h2>
+    {% for r in replies %}
+      <div class="reply-note">
+        <p class="reply-note__author">{{ r['username'] }}</p>
+        <p class="reply-note__content">{{ r['content'] }}</p>
+        <p class="reply-note__date">{{ r['created_at'][:10] }}</p>
+      </div>
+    {% else %}
+      <p class="muted">No replies yet. Be the first to write back.</p>
+    {% endfor %}
+
+    <form method="POST" action="{{ url_for('journal_reply', journal_id=journal['id']) }}" class="dearly-form">
+      <label>
+        Write a reply
+        <textarea name="content" rows="4" required placeholder="Dear {{ journal['username'] }}, ..."></textarea>
+      </label>
+      <div class="letter-controls">
+        <button type="button" class="btn btn-outline btn-small" id="btn-mic-reply">🎙 Speak instead</button>
+      </div>
+      <button type="submit" class="btn btn-ink">Send reply</button>
+    </form>
+  </section>
+
+  <a href="{{ url_for('reading_room') }}" class="form-footnote">← Back to the Reading Room</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.getElementById('btn-read-aloud').addEventListener('click', function () {
+    const text = document.getElementById('letter-body-text').innerText;
+    const speed = parseFloat(document.getElementById('read-speed').value);
+    DearlySpeech.speak(text, speed);
+  });
+  const micBtn = document.getElementById('btn-mic-reply');
+  if (micBtn) {
+    DearlySpeech.attachDictation(micBtn, document.querySelector('textarea[name="content"]'));
+  }
+</script>
+{% endblock %}

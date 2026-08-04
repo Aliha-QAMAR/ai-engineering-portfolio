@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "_letter_card.html" import letter_card %}
+{% block title %}Reading Room — Dearly{% endblock %}
+
+{% block content %}
+<header class="desk-header">
+  <div>
+    <p class="eyebrow">Open to everyone</p>
+    <h1 class="page-title">Reading Room</h1>
+  </div>
+</header>
+
+{% if journals %}
+<div class="paper-scatter">
+  {% for j in journals %}
+    {{ letter_card(j) }}
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-desk">
+  <p>No public letters have been shared yet. Be the first — write a page and mark it Public.</p>
+</div>
+{% endif %}
+{% endblock %}

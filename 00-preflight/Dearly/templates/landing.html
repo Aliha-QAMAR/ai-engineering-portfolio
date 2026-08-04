@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Dearly — Letters worth keeping{% endblock %}
+{% block bodyclass %}landing-body{% endblock %}
+
+{% block content %}
+<div class="landing-wood-desk">
+  
+  <!-- The parchment scroll that rolls open -->
+  <div class="parchment-scroll" id="parchment-scroll">
+    <div class="scroll-roller top-roller"></div>
+    
+    <div class="scroll-body-inner">
+      <!-- Cursive writing container -->
+      <div class="dearly-writing-area">
+        <span class="dearly-cursive-text" id="dearly-cursive-text">Dearly</span>
+        <!-- Floating quill animating along with writing -->
+        <div class="writing-quill-nib" id="writing-quill">✒️</div>
+      </div>
+
+      <!-- Landing content (appears after writing finishes) -->
+      <div class="landing-details-fade" id="landing-details">
+        <!-- SVG Divider -->
+        <div class="floral-divider-svg">
+          <svg viewBox="0 0 100 20" width="120" height="24">
+            <path d="M10 10 C 30 0, 40 20, 50 10 C 60 0, 70 20, 90 10" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+            <circle cx="50" cy="10" r="3" fill="var(--wax)"/>
+          </svg>
+        </div>
+
+        <p class="brand-tagline font-cinzel">A quiet place for letters, not posts. Pen pals, not followers.</p>
+        
+        <div class="auth-actions">
+          <a href="{{ url_for('login') }}" class="btn btn-ink">Sign In</a>
+          <a href="{{ url_for('register') }}" class="btn btn-outline">Start Writing</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-roller bottom-roller"></div>
+  </div>
+
+  <!-- Interactive visual elements fading in slowly -->
+  <div class="landing-visual-decorations" id="decorations">
+    <!-- Inline SVG Flower decoration left -->
+    <div class="decor-flower flower-left">
+      <svg viewBox="0 0 100 100" width="80" height="80">
+        <path d="M50 50 Q30 20 50 10 Q70 20 50 50 Z" fill="var(--wax)" opacity="0.8"/>
+        <path d="M50 50 Q20 30 10 50 Q20 70 50 50 Z" fill="var(--wax)" opacity="0.8"/>
+        <path d="M50 50 Q30 80 50 90 Q70 80 50 50 Z" fill="var(--wax)" opacity="0.8"/>
+        <path d="M50 50 Q80 30 90 50 Q80 70 50 50 Z" fill="var(--wax)" opacity="0.8"/>
+        <circle cx="50" cy="50" r="10" fill="var(--gold)"/>
+      </svg>
+    </div>
+    <!-- Inline SVG Flower decoration right -->
+    <div class="decor-flower flower-right">
+      <svg viewBox="0 0 100 100" width="60" height="60">
+        <path d="M50 50 Q35 25 50 15 Q65 25 50 50 Z" fill="var(--gold)" opacity="0.75"/>
+        <path d="M50 50 Q25 35 15 50 Q25 65 50 50 Z" fill="var(--gold)" opacity="0.75"/>
+        <path d="M50 50 Q35 75 50 85 Q65 75 50 50 Z" fill="var(--gold)" opacity="0.75"/>
+        <path d="M50 50 Q75 35 85 50 Q75 65 50 50 Z" fill="var(--gold)" opacity="0.75"/>
+        <circle cx="50" cy="50" r="8" fill="var(--wax)"/>
+      </svg>
+    </div>
+    
+    <!-- Animated Envelope icon -->
+    <div class="decor-envelope">
+      <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="var(--ink-soft)" stroke-width="1.5">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <path d="M22 6l-10 7L2 6"/>
+      </svg>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const scroll = document.getElementById('parchment-scroll');
+    const cursiveText = document.getElementById('dearly-cursive-text');
+    const quill = document.getElementById('writing-quill');
+    const details = document.getElementById('landing-details');
+    const decor = document.getElementById('decorations');
+
+    // Step 1: Open scroll (starts after 0.5s)
+    setTimeout(() => {
+      scroll.classList.add('open');
+    }, 500);
+
+    // Step 2: Trigger cursive writing reveal & sound (starts after 1.8s)
+    setTimeout(() => {
+      cursiveText.classList.add('draw-active');
+      quill.classList.add('writing-active');
+      
+      // Start scratchy pen audio
+      startWritingAudio();
+    }, 1800);
+
+    // Step 3: Reveal brand details & decorations (starts after 4.5s)
+    setTimeout(() => {
+      quill.style.opacity = '0';
+      details.classList.add('visible');
+      decor.classList.add('visible');
+    }, 4500);
+  });
+
+  // Synthesize realistic scratching pen-on-paper sound
+  function startWritingAudio() {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+      
+      // Synthesize noise sweeps that coincide with quill movements
+      let time = ctx.currentTime;
+      const duration = 2.4; // duration of stroke animation (seconds)
+      const interval = 0.08; // speed of scratches
+      
+      for (let t = 0; t < duration; t += interval) {
+        const osc = ctx.createOscillator();
+        const filter = ctx.createBiquadFilter();
+        const gain = ctx.createGain();
+        
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(250 + Math.random() * 500, time + t);
+        
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1200 + Math.random() * 800, time + t);
+        filter.Q.value = 1.0;
+        
+        gain.gain.setValueAtTime(0.0, time + t);
+        gain.gain.linearRampToValueAtTime(0.015, time + t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + t + interval - 0.01);
+        
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start(time + t);
+        osc.stop(time + t + interval);
+      }
+    } catch(err) {
+      console.warn("Audio Context init error:", err);
+    }
+  }
+</script>
+{% endblock %}

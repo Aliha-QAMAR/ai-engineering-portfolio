@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Write a page — Dearly{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="letter-form-card">
+    <h1 class="form-title">Write a new page</h1>
+    <p class="form-subtitle">Type it, or speak it and let Dearly write it down for you.</p>
+
+    <form method="POST" class="dearly-form">
+      <label>
+        Title
+        <input type="text" name="title" placeholder="Dear diary, ..." maxlength="120">
+      </label>
+
+      <label>
+        Your words
+        <textarea name="content" id="journal-content" rows="10" required
+                  placeholder="Let it all out onto the page..."></textarea>
+      </label>
+
+      <div class="letter-controls">
+        <button type="button" class="btn btn-outline btn-small" id="btn-mic-journal">🎙 Speech to text</button>
+        <span class="muted" id="mic-status"></span>
+      </div>
+
+      <label>
+        Who can read this page?
+        <select name="visibility">
+          <option value="private">🔒 Private — only me</option>
+          <option value="penpals">🤍 Pen Pals only</option>
+          <option value="public">🌍 Public — the Reading Room</option>
+        </select>
+      </label>
+      <input type="hidden" name="entry_type" value="text">
+
+      <button type="submit" class="btn btn-ink btn-block">Fold and keep this page</button>
+    </form>
+    <a href="{{ url_for('my_journals') }}" class="form-footnote">← Back to My Journals</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const micBtn = document.getElementById('btn-mic-journal');
+  const status = document.getElementById('mic-status');
+  DearlySpeech.attachDictation(micBtn, document.getElementById('journal-content'), status);
+</script>
+{% endblock %}

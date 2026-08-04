@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Sign in — Dearly{% endblock %}
+{% block bodyclass %}auth-body{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+  <div class="letter-form-card">
+    <h1 class="form-title">Welcome back</h1>
+    <p class="form-subtitle">Your desk has kept everything just as you left it.</p>
+
+    <form method="POST" class="dearly-form">
+      <label>
+        Username or email
+        <input type="text" name="identifier" required autofocus placeholder="your.name">
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required placeholder="••••••••">
+      </label>
+      <button type="submit" class="btn btn-ink btn-block">Open my desk</button>
+    </form>
+
+    <p class="form-footnote">New to Dearly? <a href="{{ url_for('register') }}">Start your first page</a></p>
+    <p class="form-footnote"><a href="{{ url_for('landing') }}">← Back</a></p>
+  </div>
+</div>
+{% endblock %}

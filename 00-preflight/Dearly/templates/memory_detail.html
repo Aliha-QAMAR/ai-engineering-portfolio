@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}Memory Archive — Dearly{% endblock %}
+
+{% block content %}
+<div class="memory-container">
+  <div class="memory-split">
+    
+    <!-- Left Column: Polaroid & Extraction -->
+    <div class="memory-card-side">
+      <div class="polaroid-frame">
+        <img src="{{ url_for('static', filename=memory['image_path']) }}" class="polaroid-image" alt="Uploaded Memory">
+        <div class="polaroid-caption">
+          <p class="polaroid-date">Captured on {{ memory['created_at'][:10] }}</p>
+        </div>
+      </div>
+      
+      {% if memory['is_blurry'] %}
+        <div class="blur-warning">
+          <span class="warning-icon">⚠️</span>
+          <div>
+            <strong>Parchment check:</strong> This photo seems a bit blurry or low-contrast. 
+            For the best transcription and chat understanding, you may want to re-upload a sharper image.
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="memory-actions-panel">
+        <form action="{{ url_for('extract_text_memory', memory_id=memory['id']) }}" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-ink btn-block">
+            📷 Extract Handwritten Text
+          </button>
+        </form>
+        <button type="button" class="btn btn-outline btn-block" id="btn-about-photo" style="margin-top:10px;">
+          🔍 About this Photo (JSON)
+        </button>
+      </div>
+
+      {% if memory['extracted_text'] %}
+        <div class="transcription-letter-wrap">
+          <div class="burnt-paper unfolded-letter">
+            <h3 class="cursive-sub">Extracted Handwriting</h3>
+            <div class="letter-body-text" id="extracted-text-body">{{ memory['extracted_text'] }}</div>
+            
+            <div class="letter-controls" style="margin-top: 18px;">
+              <button type="button" class="btn btn-outline btn-small" id="btn-read-extracted">🔊 Read Aloud</button>
+              <a href="{{ url_for('send_letter') }}?content={{ memory['extracted_text']|urlencode }}" class="btn btn-ink btn-small">✉ Send as Letter</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Right Column: Chatbot -->
+    <div class="memory-chat-side">
+      <div class="chat-container">
+        <div class="chat-header">
+          <div class="quill-icon">✒️</div>
+          <div>
+            <h3>Desk Chatbot</h3>
+            <p class="muted">Reflecting on this memory...</p>
+          </div>
+        </div>
+
+        <div class="chat-log" id="chat-log">
+          <div class="chat-bubble ai-bubble">
+            <p>Welcome. I am looking at this memory with you. What feelings or words does it bring to mind?</p>
+          </div>
+          {% for chat in chats %}
+            <div class="chat-bubble {{ 'user-bubble' if chat['sender'] == 'user' else 'ai-bubble' }}">
+              <p>{{ chat['message'] }}</p>
+            </div>
+          {% endfor %}
+        </div>
+
+        <form id="chat-form" class="chat-input-area dearly-form">
+          <textarea id="chat-message-input" rows="2" placeholder="Write a thought, or ask me to write a letter..." required></textarea>
+          <div class="chat-controls">
+            <button type="button" class="btn btn-outline btn-small" id="btn-chat-mic">🎙 Speak</button>
+            <button type="submit" class="btn btn-ink">Send</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top: 24px; text-align: center;">
+    <a href="{{ url_for('desk') }}" class="form-footnote">← Back to Writing Desk</a>
+  </div>
+</div>
+
+<div class="json-modal-backdrop" id="json-modal-backdrop">
+  <div class="json-modal">
+    <div class="json-modal-header">
+      <h3>About this Photo</h3>
+      <button type="button" class="json-modal-close" id="json-modal-close">✕</button>
+    </div>
+    <pre id="json-modal-body">Loading...</pre>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Handle Chat Input Dictation
+  const chatMicBtn = document.getElementById('btn-chat-mic');
+  const chatInput = document.getElementById('chat-message-input');
+  if (chatMicBtn && chatInput) {
+    DearlySpeech.attachDictation(chatMicBtn, chatInput);
+  }
+
+  // Handle Extracted Speech
+  const readExtBtn = document.getElementById('btn-read-extracted');
+  const textBody = document.getElementById('extracted-text-body');
+  if (readExtBtn && textBody) {
+    readExtBtn.addEventListener('click', function() {
+      DearlySpeech.speak(textBody.innerText, 1.0);
+    });
+  }
+
+  // AJAX Chat Submission
+  const chatForm = document.getElementById('chat-form');
+  const chatLog = document.getElementById('chat-log');
+  if (chatForm) {
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // Add user bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user-bubble';
+      userBubble.innerHTML = `<p>${escapeHtml(message)}</p>`;
+      chatLog.appendChild(userBubble);
+      chatLog.scrollTop = chatLog.scrollHeight;
+      chatInput.value = '';
+
+      // Send to server
+      const formData = new FormData();
+      formData.append('message', message);
+
+      fetch("{{ url_for('chat_memory', memory_id=memory['id']) }}", {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          const aiBubble = document.createElement('div');
+          aiBubble.className = 'chat-bubble ai-bubble';
+          aiBubble.innerHTML = `<p>${escapeHtml(data.reply)}</p>`;
+
+          const listenBtn = document.createElement('button');
+          listenBtn.type = 'button';
+          listenBtn.className = 'btn btn-outline btn-small btn-listen';
+          listenBtn.textContent = '🔊 Listen';
+          listenBtn.addEventListener('click', function () {
+            DearlySpeech.speak(data.reply, 1.0);
+          });
+          aiBubble.appendChild(listenBtn);
+
+          chatLog.appendChild(aiBubble);
+          chatLog.scrollTop = chatLog.scrollHeight;
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Unable to reach the desk helper.");
+      });
+    });
+  }
+
+  // About this Photo (JSON) modal
+  const aboutBtn = document.getElementById('btn-about-photo');
+  const jsonBackdrop = document.getElementById('json-modal-backdrop');
+  const jsonBody = document.getElementById('json-modal-body');
+  if (aboutBtn) {
+    aboutBtn.addEventListener('click', function () {
+      jsonBody.textContent = 'Loading...';
+      jsonBackdrop.classList.add('visible');
+      fetch("{{ url_for('about_memory', memory_id=memory['id']) }}", { method: 'POST' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            jsonBody.textContent = JSON.stringify(data.data, null, 2);
+          } else {
+            jsonBody.textContent = 'Could not load photo details.';
+          }
+        })
+        .catch(() => { jsonBody.textContent = 'Could not load photo details.'; });
+    });
+  }
+  document.getElementById('json-modal-close').addEventListener('click', function () {
+    jsonBackdrop.classList.remove('visible');
+  });
+  jsonBackdrop.addEventListener('click', function (e) {
+    if (e.target === jsonBackdrop) jsonBackdrop.classList.remove('visible');
+  });
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+</script>
+{% endblock %}

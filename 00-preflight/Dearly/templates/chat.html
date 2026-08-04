@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block title %}Chat with Liyaah — Dearly{% endblock %}
+
+{% block content %}
+<header class="desk-header">
+  <div>
+    <p class="eyebrow">A quiet corner of the desk</p>
+    <h1 class="page-title">Chat with Liyaah</h1>
+    <p class="desk-header-flourish">✒ ❀ ⁂ ❀ ✒</p>
+  </div>
+</header>
+
+<div class="memory-container" style="max-width: 720px;">
+  <div class="chat-container" style="height: 560px;">
+    <div class="chat-header">
+      <div class="quill-icon">✒️</div>
+      <div>
+        <h3>Desk Chatbot</h3>
+        <p class="muted">Upload a photo, ask her to write a letter, or just talk.</p>
+      </div>
+    </div>
+
+    <div class="chat-log" id="chat-log">
+      <div class="chat-bubble ai-bubble">
+        <p>Welcome to our quiet corner. Upload a photo, or ask me to write a letter about anything on your mind.</p>
+      </div>
+      {% for m in history %}
+        <div class="chat-bubble {{ 'user-bubble' if m['sender'] == 'user' else 'ai-bubble' }}" {% if m['photo_json'] %}data-json='{{ m["photo_json"]|safe }}'{% endif %}>
+          {% if m['image_path'] %}
+            <img src="{{ url_for('static', filename=m['image_path']) }}" class="chat-photo-thumb" alt="Uploaded photo">
+          {% endif %}
+          <p>{{ m['message'] }}</p>
+          {% if m['photo_json'] %}
+            <button type="button" class="btn btn-outline btn-small btn-about-photo">🔍 About this Photo (JSON)</button>
+          {% endif %}
+          {% if m['sender'] != 'user' %}
+            <button type="button" class="btn btn-outline btn-small btn-listen">🔊 Listen</button>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <form id="chat-form" class="chat-input-area dearly-form">
+      <textarea id="chat-message-input" rows="2" placeholder="Write a thought, or say: write a letter about..." required></textarea>
+      <div class="chat-controls">
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-outline btn-small" id="btn-chat-mic">🎙 Speak</button>
+          <label class="custom-file-upload" style="margin:0; padding:6px 10px;">
+            <input type="file" id="chat-photo-input" accept="image/*">
+            <span>📷 Upload a Photo</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-ink">Send</button>
+      </div>
+    </form>
+  </div>
+
+  <div style="margin-top: 24px; text-align: center;">
+    <a href="{{ url_for('desk') }}" class="form-footnote">← Back to Writing Desk</a>
+  </div>
+</div>
+
+<div class="json-modal-backdrop" id="json-modal-backdrop">
+  <div class="json-modal">
+    <div class="json-modal-header">
+      <h3>About this Photo</h3>
+      <button type="button" class="json-modal-close" id="json-modal-close">✕</button>
+    </div>
+    <pre id="json-modal-body"></pre>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const chatMicBtn = document.getElementById('btn-chat-mic');
+  const chatInput = document.getElementById('chat-message-input');
+  if (chatMicBtn && chatInput) {
+    DearlySpeech.attachDictation(chatMicBtn, chatInput);
+  }
+
+  const chatLog = document.getElementById('chat-log');
+  const chatForm = document.getElementById('chat-form');
+  const photoInput = document.getElementById('chat-photo-input');
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function addListenButton(bubbleEl, text) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-outline btn-small btn-listen';
+    btn.textContent = '🔊 Listen';
+    btn.addEventListener('click', function () {
+      DearlySpeech.speak(text, 1.0);
+    });
+    bubbleEl.appendChild(btn);
+  }
+
+  function scrollDown() {
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  if (chatForm) {
+    chatForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user-bubble';
+      userBubble.innerHTML = `<p>${escapeHtml(message)}</p>`;
+      chatLog.appendChild(userBubble);
+      scrollDown();
+      chatInput.value = '';
+
+      const formData = new FormData();
+      formData.append('message', message);
+
+      fetch("{{ url_for('chat_send') }}", { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            const aiBubble = document.createElement('div');
+            aiBubble.className = 'chat-bubble ai-bubble';
+            aiBubble.innerHTML = `<p>${escapeHtml(data.reply)}</p>`;
+            addListenButton(aiBubble, data.reply);
+            chatLog.appendChild(aiBubble);
+            scrollDown();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        })
+        .catch(() => alert('Unable to reach the desk helper.'));
+    });
+  }
+
+  if (photoInput) {
+    photoInput.addEventListener('change', function () {
+      if (!photoInput.files || !photoInput.files[0]) return;
+
+      const formData = new FormData();
+      formData.append('photo', photoInput.files[0]);
+
+      const uploadingBubble = document.createElement('div');
+      uploadingBubble.className = 'chat-bubble user-bubble';
+      uploadingBubble.innerHTML = `<p>Uploading photo...</p>`;
+      chatLog.appendChild(uploadingBubble);
+      scrollDown();
+
+      fetch("{{ url_for('chat_upload_photo') }}", { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === 'success') {
+            uploadingBubble.innerHTML = `<img src="/static/${data.image_path}" class="chat-photo-thumb" alt="Uploaded photo"><p>[uploaded a photo]</p>`;
+
+            const aiBubble = document.createElement('div');
+            aiBubble.className = 'chat-bubble ai-bubble';
+            aiBubble.dataset.json = data.photo_json;
+            aiBubble.innerHTML = `<p>${escapeHtml(data.reply)}</p>`;
+
+            const jsonBtn = document.createElement('button');
+            jsonBtn.type = 'button';
+            jsonBtn.className = 'btn btn-outline btn-small btn-about-photo';
+            jsonBtn.textContent = '🔍 About this Photo (JSON)';
+            aiBubble.appendChild(jsonBtn);
+            addListenButton(aiBubble, data.reply);
+
+            chatLog.appendChild(aiBubble);
+            scrollDown();
+          } else {
+            uploadingBubble.remove();
+            alert('Error: ' + data.message);
+          }
+        })
+        .catch(() => {
+          uploadingBubble.remove();
+          alert('Unable to upload the photo right now.');
+        });
+
+      photoInput.value = '';
+    });
+  }
+
+  // "About this Photo" JSON modal
+  const jsonBackdrop = document.getElementById('json-modal-backdrop');
+  const jsonBody = document.getElementById('json-modal-body');
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.btn-about-photo');
+    if (!btn) return;
+    const bubble = btn.closest('.chat-bubble');
+    let raw = bubble ? bubble.dataset.json : null;
+    if (!raw) return;
+    try {
+      const parsed = JSON.parse(raw);
+      jsonBody.textContent = JSON.stringify(parsed, null, 2);
+    } catch (err) {
+      jsonBody.textContent = raw;
+    }
+    jsonBackdrop.classList.add('visible');
+  });
+  document.getElementById('json-modal-close').addEventListener('click', function () {
+    jsonBackdrop.classList.remove('visible');
+  });
+  jsonBackdrop.addEventListener('click', function (e) {
+    if (e.target === jsonBackdrop) jsonBackdrop.classList.remove('visible');
+  });
+
+  // Wire up Listen buttons rendered server-side (chat history on page load)
+  document.querySelectorAll('.chat-bubble').forEach(function (bubble) {
+    const btn = bubble.querySelector('.btn-listen');
+    const p = bubble.querySelector('p');
+    if (btn && p) {
+      btn.addEventListener('click', function () {
+        DearlySpeech.speak(p.textContent, 1.0);
+      });
+    }
+  });
+
+  scrollDown();
+</script>
+{% endblock %}

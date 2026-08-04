@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — Dearly{% endblock %}
+
+{% block content %}
+<div class="empty-desk">
+  <h1 class="page-title">{{ code }}</h1>
+  <p>{{ message }}</p>
+  <a href="{{ url_for('desk') if me else url_for('landing') }}" class="btn btn-ink">Return to the desk</a>
+</div>
+{% endblock %}

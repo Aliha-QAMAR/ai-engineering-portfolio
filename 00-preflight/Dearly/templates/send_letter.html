@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}Send a letter — Dearly{% endblock %}
+
+{% block content %}
+<div class="auth-page compose-page-wrap">
+  
+  <!-- Quill & Inkwell decoration -->
+  <div class="quill-inkwell-station">
+    <svg class="feather-quill-svg" viewBox="0 0 100 200" width="100" height="200">
+      <!-- Inkwell glass container -->
+      <path d="M35 150 L65 150 L75 185 L25 185 Z" fill="rgba(255,255,255,0.15)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="42" y="138" width="16" height="12" fill="none" stroke="var(--ink)" stroke-width="2"/>
+      <!-- Ink liquid inside -->
+      <path d="M28 175 C40 178, 60 172, 72 175 L73 183 L27 183 Z" fill="var(--ink)"/>
+      <!-- Feather quill -->
+      <g class="quill-feather">
+        <!-- Shaft / Stem -->
+        <path d="M48 145 C45 110, 38 60, 52 15" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Feather body left side -->
+        <path d="M49 130 C35 105, 20 70, 48 20 C42 45, 30 75, 49 105 Z" fill="var(--ink-soft)" opacity="0.8"/>
+        <!-- Feather body right side -->
+        <path d="M49 130 C65 110, 72 70, 50 20 C58 45, 62 75, 49 105 Z" fill="var(--ink-soft)" opacity="0.8"/>
+        <!-- Feather details/slits -->
+        <path d="M35 80 L44 85 M30 60 L42 68 M40 40 L48 48 M62 80 L52 86 M68 62 L54 70" stroke="var(--paper)" stroke-width="1.5"/>
+      </g>
+    </svg>
+    <div class="ink-label">Ink & Quill</div>
+  </div>
+
+  <div class="letter-form-card burnt-paper" id="compose-card">
+    <h1 class="form-title cursive-sub" style="font-size: 2.2rem; text-align: center;">Send a letter</h1>
+    <p class="form-subtitle" style="text-align: center;">Address it to a fellow writer on Dearly.</p>
+
+    <form method="POST" class="dearly-form" id="letter-compose-form">
+      <label>
+        To (username)
+        <input type="text" name="recipient" required placeholder="their.username" id="recipient-input">
+      </label>
+      <label>
+        Subject
+        <input type="text" name="subject" placeholder="A few words about this letter" id="subject-input">
+      </label>
+      <label>
+        Your letter
+        <textarea name="content" id="letter-content" rows="10" required placeholder="Dear friend, ..."></textarea>
+      </label>
+      
+      <div class="letter-controls">
+        <button type="button" class="btn btn-outline btn-small" id="btn-mic-letter">🎙 Speech to text</button>
+        <span class="speech-status-msg" id="mic-status"></span>
+      </div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" name="anonymous">
+        Send anonymously — they will never see your name
+      </label>
+      <button type="submit" class="btn btn-ink btn-block" id="btn-submit-letter">Seal and send</button>
+    </form>
+    <a href="{{ url_for('mailbox') }}" class="form-footnote">← Back to Mailbox</a>
+  </div>
+
+  <!-- 3D Animation Overlay (Hidden by default) -->
+  <div class="fold-overlay" id="fold-overlay">
+    <div class="fold-animation-container">
+      <!-- Folding Paper -->
+      <div class="folding-paper-3d" id="folding-paper">
+        <div class="paper-fold-segment top-fold"></div>
+        <div class="paper-fold-segment middle-fold">
+          <div class="paper-written-lines">Dearly...</div>
+        </div>
+        <div class="paper-fold-segment bottom-fold"></div>
+      </div>
+      <!-- Envelope -->
+      <div class="envelope-container-3d" id="envelope-3d">
+        <div class="envelope-back"></div>
+        <div class="envelope-paper-target"></div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap" id="envelope-flap-3d"></div>
+        <div class="envelope-wax-seal" id="wax-seal-3d">✒️</div>
+      </div>
+      <div class="sent-message" id="sent-message">Sent.</div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const micBtn = document.getElementById('btn-mic-letter');
+  const contentArea = document.getElementById('letter-content');
+  const statusEl = document.getElementById('mic-status');
+
+  // Load URL query params to check if voice is enabled or content pre-filled
+  const urlParams = new URLSearchParams(window.location.search);
+  const isVoiceActive = urlParams.get('voice') === '1';
+  const prefilledContent = urlParams.get('content');
+  
+  if (prefilledContent) {
+    contentArea.value = decodeURIComponent(prefilledContent);
+  }
+
+  // Attach Dictation
+  DearlySpeech.attachDictation(micBtn, contentArea, statusEl);
+
+  // Auto trigger speech recognition if voice parameter is set
+  if (isVoiceActive) {
+    setTimeout(() => {
+      if (micBtn) micBtn.click();
+    }, 600);
+  }
+
+  // Custom 3D Folding & Sending Animation
+  const composeForm = document.getElementById('letter-compose-form');
+  const foldOverlay = document.getElementById('fold-overlay');
+  const composeCard = document.getElementById('compose-card');
+
+  if (composeForm) {
+    composeForm.addEventListener('submit', function (e) {
+      // Validate inputs
+      const recipient = document.getElementById('recipient-input').value.trim();
+      const content = contentArea.value.trim();
+      if (!recipient || !content) return;
+
+      e.preventDefault(); // Stop immediate submission
+
+      // Play soft writing/folding synthesized sound
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+      playFoldingAudio();
+
+      // Show fold overlay & trigger classes
+      foldOverlay.classList.add('active');
+      composeCard.style.opacity = '0';
+      composeCard.style.pointerEvents = 'none';
+
+      const foldingPaper = document.getElementById('folding-paper');
+      const envelope = document.getElementById('envelope-3d');
+      const flap = document.getElementById('envelope-flap-3d');
+      const seal = document.getElementById('wax-seal-3d');
+      const sentMsg = document.getElementById('sent-message');
+
+      // Sequence animations
+      // Step 1: Fold paper (1s)
+      setTimeout(() => {
+        foldingPaper.classList.add('folded');
+      }, 200);
+
+      // Step 2: Slide paper into envelope (2s)
+      setTimeout(() => {
+        foldingPaper.classList.add('in-envelope');
+        envelope.classList.add('active');
+      }, 1200);
+
+      // Step 3: Close flap and stamp wax seal (3s)
+      setTimeout(() => {
+        flap.classList.add('closed');
+      }, 2000);
+
+      setTimeout(() => {
+        seal.classList.add('stamped');
+      }, 2600);
+
+      // Step 4: Fly away envelope & show "Sent" message (4.2s)
+      setTimeout(() => {
+        envelope.classList.add('fly-away');
+        sentMsg.classList.add('active');
+      }, 3400);
+
+      // Step 5: Submit form to server (4.8s)
+      setTimeout(() => {
+        composeForm.submit();
+      }, 4800);
+    });
+  }
+
+  // Synthesize folding and sealing noise using Web Audio API
+  function playFoldingAudio() {
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      const ctx = new AudioContext();
+
+      // Paper rustle sound
+      const bufferSize = ctx.sampleRate * 1.5; // 1.5 seconds
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = Math.random() * 2 - 1;
+      }
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 1000;
+      filter.Q.value = 0.5;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.08, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.2);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
+      noise.start();
+
+      // Wax stamp thud sound
+      setTimeout(() => {
+        const osc = ctx.createOscillator();
+        const thudGain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.3);
+
+        thudGain.gain.setValueAtTime(0.3, ctx.currentTime);
+        thudGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+
+        osc.connect(thudGain);
+        thudGain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      }, 2600);
+
+    } catch (err) {
+      console.warn("Audio Context error:", err);
+    }
+  }
+</script>
+{% endblock %}

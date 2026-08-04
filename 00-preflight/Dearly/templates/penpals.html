@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+{% from "_letter_card.html" import letter_card %}
+{% block title %}Pen Pals — Dearly{% endblock %}
+
+{% block content %}
+<header class="desk-header">
+  <div>
+    <p class="eyebrow">Not followers. Friends who write back.</p>
+    <h1 class="page-title">Pen Pals</h1>
+  </div>
+</header>
+
+<form method="GET" class="search-row">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search writers by username...">
+  <button type="submit" class="btn btn-outline">Search</button>
+</form>
+
+{% if search_results %}
+<section class="penpal-section">
+  <h2>Search results</h2>
+  <div class="people-grid">
+    {% for u in search_results %}
+      <div class="person-card">
+        <div class="person-avatar">{{ u['avatar_seed'] or u['username'][:2]|upper }}</div>
+        <p class="person-name">{{ u['username'] }}</p>
+        <a href="{{ url_for('profile', username=u['username']) }}" class="form-footnote">View profile</a>
+        <form method="POST" action="{{ url_for('send_penpal_request', user_id=u['id']) }}">
+          <button type="submit" class="btn btn-outline btn-small">Become pen pals</button>
+        </form>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if incoming %}
+<section class="penpal-section">
+  <h2>Requests waiting for you</h2>
+  <div class="people-grid">
+    {% for r in incoming %}
+      <div class="person-card">
+        <div class="person-avatar">{{ r['avatar_seed'] or r['username'][:2]|upper }}</div>
+        <p class="person-name">{{ r['username'] }} would like to become your Pen Pal.</p>
+        <div class="person-card__actions">
+          <form method="POST" action="{{ url_for('respond_penpal_request', request_id=r['id'], action='accept') }}">
+            <button type="submit" class="btn btn-ink btn-small">Accept</button>
+          </form>
+          <form method="POST" action="{{ url_for('respond_penpal_request', request_id=r['id'], action='decline') }}">
+            <button type="submit" class="btn-link-danger">Decline</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if penpal_journals %}
+<section class="penpal-section">
+  <h2>Pages from your Pen Pals</h2>
+  <div class="paper-scatter">
+    {% for j in penpal_journals %}
+      {{ letter_card(j) }}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="penpal-section">
+  <h2>Your Pen Pals</h2>
+  {% if penpals %}
+    <div class="people-grid">
+      {% for p in penpals %}
+        <a href="{{ url_for('profile', username=p['username']) }}" class="person-card">
+          <div class="person-avatar">{{ p['avatar_seed'] or p['username'][:2]|upper }}</div>
+          <p class="person-name">{{ p['username'] }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted">No pen pals yet — search above to find fellow writers.</p>
+  {% endif %}
+</section>
+{% endblock %}

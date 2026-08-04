@@ -1,0 +1,11 @@
+{% macro letter_card(j) %}
+<a href="{{ url_for('journal_detail', journal_id=j['id']) }}" class="paper-card paper-style-{{ j['paper_style'] }}">
+  <div class="paper-card__seal">{{ '🔒' if j['visibility'] == 'private' else ('🤍' if j['visibility'] == 'penpals' else '🌍') }}</div>
+  <h3 class="paper-card__title">{{ j['title'] }}</h3>
+  <p class="paper-card__excerpt">{{ j['content'][:140] }}{{ '…' if j['content']|length > 140 }}</p>
+  <div class="paper-card__footer">
+    <span class="paper-card__author">— {{ j['username'] }}</span>
+    <span class="paper-card__type">{{ '🎙' if j['entry_type'] == 'voice' else '✎' }}</span>
+  </div>
+</a>
+{% endmacro %}

@@ -664,7 +664,6 @@ def upload_memory():
         filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
         file.save(filepath)
         
-        # Analyze blur (Pillow FIND_EDGES variance)
         blur_score = calculate_blur_score(filepath)
         is_blurry = 1 if blur_score < 7.0 else 0
         

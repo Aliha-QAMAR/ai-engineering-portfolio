@@ -657,7 +657,6 @@ def upload_memory():
         return redirect(url_for("desk"))
         
     if file and allowed_file(file.filename):
-        # Create unique filename
         unique_id = datetime.utcnow().strftime('%Y%m%d%H%M%S%f')
         filename = f"mem_{me['id']}_{unique_id}_{secure_filename(file.filename)}"
         os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)

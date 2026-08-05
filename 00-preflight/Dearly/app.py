@@ -160,8 +160,6 @@ def desk():
         "SELECT COUNT(*) c FROM penpal_requests WHERE recipient_id = ? AND status = 'pending'",
         (me["id"],),
     ).fetchone()["c"]
-
-    # Fetch accepted penpals to show on the desk
     penpals = conn.execute(
         """SELECT users.* FROM penpal_requests
            JOIN users ON users.id = CASE
@@ -170,8 +168,6 @@ def desk():
            WHERE status = 'accepted' AND (sender_id = ? OR recipient_id = ?) LIMIT 6""",
         (me["id"], me["id"], me["id"]),
     ).fetchall()
-
-    # Fetch uploaded memories to show on the desk
     memories = conn.execute(
         "SELECT * FROM memories WHERE user_id = ? ORDER BY pinned DESC, created_at DESC LIMIT 6",
         (me["id"],)
@@ -550,10 +546,6 @@ def settings():
     conn.close()
     return render_template("settings.html")
 
-
-# ===========================================================
-# Groq API Vision, Chat & Pillow Image Blur Analysis
-# ===========================================================
 import base64
 import requests
 import math

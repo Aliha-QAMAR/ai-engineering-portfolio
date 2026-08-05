@@ -735,7 +735,6 @@ def chat_memory(memory_id):
     )
     conn.commit()
     
-    # Retrieve API key
     api_key = me["groq_api_key"] or os.environ.get("GROQ_API_KEY", "")
     
     ai_response = None

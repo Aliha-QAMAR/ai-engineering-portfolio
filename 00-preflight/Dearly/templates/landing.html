@@ -82,12 +82,10 @@
     const details = document.getElementById('landing-details');
     const decor = document.getElementById('decorations');
 
-    // Step 1: Open scroll (starts after 0.5s)
+
     setTimeout(() => {
       scroll.classList.add('open');
     }, 500);
-
-    // Step 2: Trigger cursive writing reveal & sound (starts after 1.8s)
     setTimeout(() => {
       cursiveText.classList.add('draw-active');
       quill.classList.add('writing-active');

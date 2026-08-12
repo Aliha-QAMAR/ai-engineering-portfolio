@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dearly</title>
+<link rel="stylesheet" href="/static/css/landing.css">
+</head>
+<body>
+<div id="stage">
+  <div class="window-light"></div>
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+
+  <div class="desk" id="desk"></div>
+
+  <div class="parchment">
+    <svg class="paper-grain" xmlns="http://www.w3.org/2000/svg">
+      <filter id="paper-grain">
+        <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch"></feTurbulence>
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      </filter>
+      <rect width="100%" height="100%" filter="url(#paper-grain)"></rect>
+    </svg>
+    <div class="ruled-line" style="top:40%"></div>
+    <div class="ruled-line" style="top:54%"></div>
+    <div class="ruled-line" style="top:68%"></div>
+    <div class="ruled-line" style="top:82%"></div>
+    <div class="aged-edge-x"></div>
+    <div class="aged-edge-y"></div>
+    <div class="ink-stain"></div>
+  </div>
+
+  <div class="book-left">
+    <div class="spine"></div>
+    <div class="rule1"></div>
+    <div class="rule2"></div>
+  </div>
+
+  <div class="book-right">
+    <div class="spine"></div>
+  </div>
+
+  <div class="envelope">
+    <div class="flap"></div>
+    <div class="seal"></div>
+  </div>
+
+  <div class="flower">
+    <svg viewBox="0 0 36 55">
+      <line x1="18" y1="52" x2="18" y2="18" stroke="#4a3520" stroke-width="1.4"></line>
+      <ellipse cx="18" cy="16" rx="6" ry="9" fill="rgba(175,95,75,0.72)" transform="rotate(-14,18,16)"></ellipse>
+      <ellipse cx="18" cy="16" rx="5" ry="8" fill="rgba(155,75,58,0.62)" transform="rotate(18,18,16)"></ellipse>
+      <ellipse cx="18" cy="16" rx="5" ry="7" fill="rgba(195,115,85,0.52)" transform="rotate(48,18,16)"></ellipse>
+    </svg>
+  </div>
+
+  <div class="map-scrap">
+    <div class="hline" style="top:14%"></div>
+    <div class="hline" style="top:28%"></div>
+    <div class="hline" style="top:42%"></div>
+    <div class="hline" style="top:56%"></div>
+    <div class="vline1"></div>
+    <div class="vline2"></div>
+  </div>
+
+  <div class="candle-wrap">
+    <div class="candle-glow"></div>
+    <div class="candle-flame"></div>
+    <div class="candle-wick"></div>
+    <div class="candle-body"></div>
+  </div>
+
+  <div class="leaves-layer" id="leaves"></div>
+  <div class="butterflies-layer" id="butterflies"></div>
+  <div class="particles-layer" id="particles"></div>
+
+  <div class="vignette"></div>
+
+  <div class="center-stage">
+    <div class="inkpot-feather-wrap">
+      <div class="inkpot">
+        <svg viewBox="0 0 72 86">
+          <defs>
+            <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#503a22"></stop>
+              <stop offset="100%" stop-color="#1c0e06"></stop>
+            </linearGradient>
+            <radialGradient id="ink" cx="50%" cy="38%" r="50%">
+              <stop offset="0%" stop-color="#2a1a0a"></stop>
+              <stop offset="100%" stop-color="#080402"></stop>
+            </radialGradient>
+          </defs>
+          <path d="M13,33 Q10,37 10,52 Q10,68 36,70 Q62,68 62,52 Q62,37 59,33 Z" fill="url(#pg)" stroke="#321808" stroke-width="1"></path>
+          <path d="M20,26 Q18,33 13,33 L59,33 Q54,33 52,26 Z" fill="#381a0c" stroke="#261206" stroke-width="0.8"></path>
+          <ellipse cx="36" cy="26" rx="16" ry="4.5" fill="#503a22" stroke="#321808" stroke-width="1"></ellipse>
+          <ellipse cx="36" cy="27.5" rx="14" ry="3.5" fill="url(#ink)"></ellipse>
+          <path d="M18,40 Q16,50 18,58" stroke="rgba(180,140,70,0.28)" stroke-width="2" fill="none" stroke-linecap="round"></path>
+          <path d="M12,48 Q12,51 36,52 Q60,51 60,48 Q60,45 36,44 Q12,45 12,48 Z" fill="rgba(190,148,60,0.22)"></path>
+          <g id="ripples"></g>
+        </svg>
+      </div>
+      <div class="feather" id="feather">
+        <svg viewBox="0 0 54 148">
+          <defs>
+            <linearGradient id="fv" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffffff"></stop>
+              <stop offset="45%" stop-color="#f4ede0"></stop>
+              <stop offset="100%" stop-color="#e6d8c0"></stop>
+            </linearGradient>
+            <linearGradient id="qs" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#5c3d1e"></stop>
+              <stop offset="100%" stop-color="#261408"></stop>
+            </linearGradient>
+          </defs>
+          <path d="M27,142 L27,28" stroke="url(#qs)" stroke-width="1.8" fill="none" stroke-linecap="round"></path>
+          <path d="M27,28 C46,18 54,8 48,1 C44,-3 36,1 27,28
+                   C40,26 48,19 46,12 C44,6 36,9 27,28
+                   C42,30 50,26 48,18 C46,12 38,15 27,28
+                   C42,34 50,32 48,25 C46,19 38,22 27,28
+                   C42,40 50,38 48,31 C46,25 38,28 27,28
+                   C42,47 50,46 48,38 C46,32 38,35 27,28
+                   C40,54 48,54 46,46 C44,40 36,42 27,28"
+            fill="url(#fv)" stroke="rgba(180,155,118,0.35)" stroke-width="0.5"></path>
+          <path d="M27,28 C8,18 0,8 6,1 C10,-3 18,1 27,28
+                   C14,26 6,19 8,12 C10,6 18,9 27,28
+                   C12,30 4,26 6,18 C8,12 16,15 27,28
+                   C12,34 4,32 6,25 C8,19 16,22 27,28
+                   C12,40 4,38 6,31 C8,25 16,28 27,28
+                   C12,47 4,46 6,38 C8,32 16,35 27,28
+                   C14,54 6,54 8,46 C10,40 18,42 27,28"
+            fill="url(#fv)" stroke="rgba(180,155,118,0.35)" stroke-width="0.5"></path>
+          <line x1="27" y1="28" x2="27" y2="132" stroke="rgba(160,125,75,0.42)" stroke-width="0.7"></line>
+          <path d="M27,136 L25.5,142 Q27,145 28.5,142 Z" fill="#261408"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div class="title-text" id="titleText">Dearly</div>
+
+    <div class="tagline" id="tagline">
+      <span>Every</span><span>Word</span><span>Matters</span>
+    </div>
+
+    <div class="button-wrap" id="buttonWrap">
+      <button class="go-button" id="goButton">
+        <div class="texture"></div>
+        <div class="shimmer"></div>
+        Go To Reading Room
+      </button>
+    </div>
+  </div>
+
+  <div class="bottom-shadow"></div>
+</div>
+
+<script src="/static/js/landing.js"></script>
+</body>
+</html>

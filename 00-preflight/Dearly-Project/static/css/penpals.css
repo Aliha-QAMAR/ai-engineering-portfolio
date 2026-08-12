@@ -1,0 +1,30 @@
+/* =========================================================
+   PEN PALS PANEL
+   ========================================================= */
+.penpal-tabs{ display:flex; gap:1.4rem; margin-bottom:1.2rem; border-bottom:1px solid var(--paper-shadow); }
+.penpal-tab{
+  background:none; border:none; cursor:pointer; padding:.4rem 0 .7rem;
+  font-family:'Cormorant SC', serif; letter-spacing:.08em; text-transform:uppercase;
+  font-size:.8rem; color:var(--paper-shadow); border-bottom:2px solid transparent; margin-bottom:-1px;
+  position:relative;
+}
+.penpal-tab.active{ color:var(--burgundy); border-color:var(--burgundy); }
+.penpal-tab .badge{
+  position:absolute; top:-4px; right:-14px;
+  background:var(--burgundy); color:var(--cream); border-radius:50%;
+  width:16px; height:16px; font-size:.65rem; display:flex; align-items:center; justify-content:center;
+}
+
+.search-row{ display:flex; gap:.6rem; margin-bottom:1.2rem; }
+.search-row input{
+  flex:1; font-family:'EB Garamond', serif; font-size:1rem; padding:.6rem .8rem;
+  border:1px solid var(--paper-shadow); background:var(--paper);
+}
+
+.penpal-row{
+  display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  padding:.9rem 0; border-bottom:1px dashed var(--paper-shadow);
+}
+.penpal-row:last-child{ border-bottom:none; }
+.penpal-row .who{ font-weight:600; }
+.penpal-row .status-tag{ font-style:italic; color:var(--brass); font-size:.85rem; }

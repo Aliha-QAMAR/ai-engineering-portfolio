@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dearly — a room for your memories</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/css/dashboard.css">
+<link rel="stylesheet" href="/css/auth.css">
+<link rel="stylesheet" href="/css/letters.css">
+<link rel="stylesheet" href="/css/journal.css">
+<link rel="stylesheet" href="/css/penpals.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/landing.css">
+</head>
+<body class="day">
+
+<div id="acctPill">
+  <div class="stamp"></div>
+  <span class="status" id="acctStatus">Visiting as a guest</span>
+  <span class="divider" id="acctDivider">·</span>
+  <button id="acctAction" data-action="signup">Sign up</button>
+  <span class="divider" id="acctDivider2">·</span>
+  <button id="acctAction2" data-action="signin">Sign in</button>
+</div>
+
+<button class="back-btn" id="backBtn">&larr; Back</button>
+
+<div id="musicToggle" style="display:none;">
+  <span class="note" id="musicIcon">🔈</span> <span id="musicLabel">Music off</span>
+</div>
+
+<div id="app">
+  <div class="screen-track" id="screenTrack">
+
+    <!-- =========================================================
+         SCREEN 1 — LANDING
+         ========================================================= -->
+        <section class="screen" id="screen-landing" aria-label="Dearly landing page">
+      <div class="ld-scene">
+
+        <!-- window light + curtains -->
+        <div class="ld-window"></div>
+        <div class="ld-curtain ld-curtain-l"></div>
+        <div class="ld-curtain ld-curtain-r"></div>
+
+        <!-- desk surface -->
+        <div class="ld-desk">
+          <div class="ld-desk-grain" style="top:10%"></div>
+          <div class="ld-desk-grain" style="top:24%"></div>
+          <div class="ld-desk-grain" style="top:40%"></div>
+          <div class="ld-desk-grain" style="top:58%"></div>
+          <div class="ld-desk-grain" style="top:74%"></div>
+          <div class="ld-desk-grain" style="top:88%"></div>
+        </div>
+
+        <!-- parchment paper on desk -->
+        <div class="ld-paper">
+          <svg class="ld-paper-grain" xmlns="http://www.w3.org/2000/svg">
+            <filter id="ldPaperGrain"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+            <rect width="100%" height="100%" filter="url(#ldPaperGrain)"/>
+          </svg>
+          <div class="ld-paper-rule" style="top:40%"></div>
+          <div class="ld-paper-rule" style="top:54%"></div>
+          <div class="ld-paper-rule" style="top:68%"></div>
+          <div class="ld-paper-rule" style="top:82%"></div>
+          <div class="ld-paper-edge-x"></div>
+          <div class="ld-paper-edge-y"></div>
+          <div class="ld-paper-stain"></div>
+        </div>
+
+        <!-- desk props -->
+        <div class="ld-prop" style="bottom:37%; left:7%; width:76px; height:96px; background:linear-gradient(130deg,#5c3520 0%,#3a2010 100%); transform:rotate(-11deg); z-index:7; border-radius:2px 4px 4px 2px; box-shadow:4px 5px 18px rgba(0,0,0,0.55);">
+          <div style="position:absolute; left:8px; top:8px; right:8px; bottom:8px; border-left:3px solid rgba(185,145,72,0.38);"></div>
+        </div>
+        <div class="ld-prop" style="bottom:36%; right:8%; width:64px; height:84px; background:linear-gradient(135deg,#4a2e1c 0%,#281608 100%); transform:rotate(9deg); z-index:7; border-radius:4px 2px 2px 4px; box-shadow:-4px 5px 18px rgba(0,0,0,0.55);">
+          <div style="position:absolute; right:8px; top:8px; left:8px; bottom:8px; border-right:3px solid rgba(185,145,72,0.32);"></div>
+        </div>
+
+        <!-- wax envelope -->
+        <div class="ld-prop" style="bottom:35%; right:17%; width:62px; height:44px; background:linear-gradient(155deg,#f2e6c2 0%,#e6d8a2 100%); transform:rotate(-5deg); z-index:8; border-radius:2px; box-shadow:2px 4px 14px rgba(0,0,0,0.4); overflow:hidden;">
+          <div style="position:absolute; bottom:50%; left:0; right:0; top:0; border-bottom:22px solid #dcd0a0; border-left:31px solid transparent; border-right:31px solid transparent;"></div>
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-28%); width:15px; height:15px; border-radius:50%; background:radial-gradient(circle,#c03018,#8a2810); box-shadow:0 2px 6px rgba(0,0,0,0.4); z-index:2;"></div>
+        </div>
+
+        <!-- dried flower -->
+        <div class="ld-prop" style="bottom:40%; left:17%; width:36px; height:55px; z-index:7; transform:rotate(18deg); opacity:0.78;">
+          <svg viewBox="0 0 36 55" style="width:100%">
+            <line x1="18" y1="52" x2="18" y2="18" stroke="#4a3520" stroke-width="1.4"/>
+            <ellipse cx="18" cy="16" rx="6" ry="9" fill="rgba(175,95,75,0.72)" transform="rotate(-14,18,16)"/>
+            <ellipse cx="18" cy="16" rx="5" ry="8" fill="rgba(155,75,58,0.62)" transform="rotate(18,18,16)"/>
+            <ellipse cx="18" cy="16" rx="5" ry="7" fill="rgba(195,115,85,0.52)" transform="rotate(48,18,16)"/>
+          </svg>
+        </div>
+
+        <!-- vintage map scrap -->
+        <div class="ld-prop" style="bottom:38%; left:23%; width:65px; height:48px; background:linear-gradient(138deg,#d6c492 0%,#c8b47a 100%); transform:rotate(4deg); z-index:6; border-radius:1px; box-shadow:2px 3px 12px rgba(0,0,0,0.38); opacity:0.88; overflow:hidden;">
+          <div style="position:absolute; left:5%; right:5%; top:14%; height:1px; background:rgba(75,55,25,0.28);"></div>
+          <div style="position:absolute; left:5%; right:5%; top:28%; height:1px; background:rgba(75,55,25,0.28);"></div>
+          <div style="position:absolute; left:5%; right:5%; top:42%; height:1px; background:rgba(75,55,25,0.28);"></div>
+          <div style="position:absolute; left:5%; right:5%; top:56%; height:1px; background:rgba(75,55,25,0.28);"></div>
+          <div style="position:absolute; top:18%; left:32%; width:1px; height:64%; background:rgba(75,55,25,0.22);"></div>
+          <div style="position:absolute; top:18%; left:62%; width:1px; height:64%; background:rgba(75,55,25,0.18);"></div>
+        </div>
+
+        <!-- candle -->
+        <div class="ld-candle">
+          <div class="ld-candle-glow"></div>
+          <div class="ld-flame"></div>
+          <div class="ld-wick"></div>
+          <div class="ld-candle-body"></div>
+        </div>
+
+        <!-- ambient layers (populated by landing.js) -->
+        <div class="ld-leaves" id="ldLeaves"></div>
+        <div class="ld-butterflies" id="ldButterflies"></div>
+        <div class="ld-particles" id="ldParticles"></div>
+
+        <!-- vignette + bottom shadow -->
+        <div class="ld-vignette"></div>
+        <div class="ld-bottom-shadow"></div>
+
+        <!-- ===== center stage ===== -->
+        <div class="ld-stage">
+
+          <!-- ink pot + feather -->
+          <div class="ld-inkstage">
+            <div class="ld-inkpot">
+              <svg viewBox="0 0 72 86" style="width:72px; display:block; filter:drop-shadow(0 6px 14px rgba(0,0,0,0.55))">
+                <defs>
+                  <linearGradient id="ldPot" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#503a22"/>
+                    <stop offset="100%" stop-color="#1c0e06"/>
+                  </linearGradient>
+                  <radialGradient id="ldInk" cx="50%" cy="38%" r="50%">
+                    <stop offset="0%" stop-color="#2a1a0a"/>
+                    <stop offset="100%" stop-color="#080402"/>
+                  </radialGradient>
+                </defs>
+                <path d="M13,33 Q10,37 10,52 Q10,68 36,70 Q62,68 62,52 Q62,37 59,33 Z" fill="url(#ldPot)" stroke="#321808" stroke-width="1"/>
+                <path d="M20,26 Q18,33 13,33 L59,33 Q54,33 52,26 Z" fill="#381a0c" stroke="#261206" stroke-width="0.8"/>
+                <ellipse cx="36" cy="26" rx="16" ry="4.5" fill="#503a22" stroke="#321808" stroke-width="1"/>
+                <ellipse cx="36" cy="27.5" rx="14" ry="3.5" fill="url(#ldInk)"/>
+                <path d="M18,40 Q16,50 18,58" stroke="rgba(180,140,70,0.28)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <path d="M12,48 Q12,51 36,52 Q60,51 60,48 Q60,45 36,44 Q12,45 12,48 Z" fill="rgba(190,148,60,0.22)"/>
+              </svg>
+            </div>
+
+            <div class="ld-feather">
+              <svg viewBox="0 0 54 148" style="width:100%">
+                <defs>
+                  <linearGradient id="ldVane" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffffff"/>
+                    <stop offset="45%" stop-color="#f4ede0"/>
+                    <stop offset="100%" stop-color="#e6d8c0"/>
+                  </linearGradient>
+                  <linearGradient id="ldQuill" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#5c3d1e"/>
+                    <stop offset="100%" stop-color="#261408"/>
+                  </linearGradient>
+                </defs>
+                <path d="M27,142 L27,28" stroke="url(#ldQuill)" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                <path d="M27,28 C46,18 54,8 48,1 C44,-3 36,1 27,28
+                         C40,26 48,19 46,12 C44,6 36,9 27,28
+                         C42,30 50,26 48,18 C46,12 38,15 27,28
+                         C42,34 50,32 48,25 C46,19 38,22 27,28
+                         C42,40 50,38 48,31 C46,25 38,28 27,28
+                         C42,47 50,46 48,38 C46,32 38,35 27,28
+                         C40,54 48,54 46,46 C44,40 36,42 27,28"
+                  fill="url(#ldVane)" stroke="rgba(180,155,118,0.35)" stroke-width="0.5"/>
+                <path d="M27,28 C8,18 0,8 6,1 C10,-3 18,1 27,28
+                         C14,26 6,19 8,12 C10,6 18,9 27,28
+                         C12,30 4,26 6,18 C8,12 16,15 27,28
+                         C12,34 4,32 6,25 C8,19 16,22 27,28
+                         C12,40 4,38 6,31 C8,25 16,28 27,28
+                         C12,47 4,46 6,38 C8,32 16,35 27,28
+                         C14,54 6,54 8,46 C10,40 18,42 27,28"
+                  fill="url(#ldVane)" stroke="rgba(180,155,118,0.35)" stroke-width="0.5"/>
+                <line x1="27" y1="28" x2="27" y2="132" stroke="rgba(160,125,75,0.42)" stroke-width="0.7"/>
+                <path d="M27,136 L25.5,142 Q27,145 28.5,142 Z" fill="#261408"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- title revealed by the quill -->
+          <div class="ld-title">Dearly</div>
+
+          <!-- tagline -->
+          <div class="ld-tagline">
+            <span>Every</span>
+            <span>Word</span>
+            <span>Matters</span>
+          </div>
+
+          <!-- Go To Reading Room -> existing sign up / sign in (id kept for auth.js) -->
+          <div class="ld-btn-wrap">
+            <button class="ld-go-btn" id="scrollCue" aria-label="Go to the reading room">Go To Reading Room</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 2 — AUTH (sign up / sign in)
+         ========================================================= -->
+    <section class="screen" id="screen-auth" aria-label="Sign up or sign in">
+      <div class="auth-wrap">
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="tabSignup" data-tab="signup">Sign up</button>
+          <button class="auth-tab" id="tabSignin" data-tab="signin">Sign in</button>
+        </div>
+
+        <div class="letter-page burn-in" id="pageSignup">
+          <div class="ember-edge"></div>
+          <h3>Begin your room</h3>
+          <p class="sub">A name and a password — nothing more.</p>
+          <form class="auth-form" id="formSignup">
+            <input type="text" id="signupUsername" placeholder="Choose a username" autocomplete="username" required>
+            <input type="password" id="signupPassword" placeholder="Choose a password" autocomplete="new-password" required>
+            <button type="submit" class="btn btn-primary auth-submit">Seal my account</button>
+          </form>
+          <div class="error-note" id="signupError"></div>
+          <p class="auth-foot-note">Already keep a room here? <button class="landing-link" data-tab="signin" style="display:inline; margin:0;">Sign in instead</button></p>
+        </div>
+
+        <div class="letter-page hidden" id="pageSignin">
+          <div class="ember-edge"></div>
+          <h3>Welcome back</h3>
+          <p class="sub">Your desk has been waiting.</p>
+          <form class="auth-form" id="formSignin">
+            <input type="text" id="signinUsername" placeholder="Username" autocomplete="username" required>
+            <input type="password" id="signinPassword" placeholder="Password" autocomplete="current-password" required>
+            <button type="submit" class="btn btn-primary auth-submit">Sign in</button>
+          </form>
+          <div class="error-note" id="signinError"></div>
+          <p class="auth-foot-note">New here? <button class="landing-link" data-tab="signup" style="display:inline; margin:0;">Create a room instead</button></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SCREEN 3 — DASHBOARD (writer's desk)
+         ========================================================= -->
+    <section class="screen" id="screen-dashboard" aria-label="Dearly writer's desk">
+      <div class="desk-heading">
+        <h2>Your writing room</h2>
+        <p>Everything here is a place, not a menu. Touch what calls to you.</p>
+      </div>
+
+      <div class="desk-scene">
+
+        <!-- bookshelf -->
+        <div class="obj" id="obj-bookshelf" tabindex="0" role="button" aria-label="Bookshelf — Archives">
+          <svg viewBox="0 0 300 90">
+            <rect x="0" y="0" width="300" height="14" fill="#2a1a10"/>
+            <g>
+              <rect class="book" x="10" y="14" width="18" height="60" fill="#6e2b36"/>
+              <rect class="book" x="30" y="14" width="16" height="60" fill="#3c5a3a" style="transition:transform .3s ease .02s"/>
+              <rect class="book" x="48" y="14" width="20" height="60" fill="#7a5230" style="transition:transform .3s ease .05s"/>
+              <rect class="book" x="70" y="14" width="15" height="60" fill="#4a3b2c" style="transition:transform .3s ease .08s"/>
+              <rect class="book" x="87" y="14" width="19" height="60" fill="#8a3a45" style="transition:transform .3s ease .11s"/>
+              <rect class="book" x="108" y="14" width="17" height="60" fill="#6b7245" style="transition:transform .3s ease .14s"/>
+              <rect class="book" x="127" y="14" width="21" height="60" fill="#3c2a1d" style="transition:transform .3s ease .17s"/>
+              <rect class="book" x="150" y="14" width="16" height="60" fill="#b6924f" style="transition:transform .3s ease .2s"/>
+              <rect class="book" x="168" y="14" width="18" height="60" fill="#6e2b36" style="transition:transform .3s ease .23s"/>
+              <rect class="book" x="188" y="14" width="20" height="60" fill="#3c5a3a" style="transition:transform .3s ease .26s"/>
+              <rect class="book" x="210" y="14" width="17" height="60" fill="#7a5230" style="transition:transform .3s ease .29s"/>
+              <rect class="book" x="229" y="14" width="19" height="60" fill="#4a3b2c" style="transition:transform .3s ease .32s"/>
+              <rect class="book" x="250" y="14" width="16" height="60" fill="#8a3a45" style="transition:transform .3s ease .35s"/>
+              <rect class="book" x="268" y="14" width="22" height="60" fill="#6b7245" style="transition:transform .3s ease .38s"/>
+            </g>
+          </svg>
+          <span class="label">Archives</span>
+        </div>
+
+        <!-- letters -->
+        <div class="obj" id="obj-letters" tabindex="0" role="button" aria-label="Stack of letters — Inbox">
+          <svg viewBox="0 0 150 100">
+            <rect x="8" y="30" width="130" height="60" rx="2" fill="#e0c99a" stroke="#a9895a"/>
+            <path d="M8 30 L73 68 L138 30" fill="none" stroke="#a9895a" stroke-width="2"/>
+            <rect x="0" y="14" width="130" height="60" rx="2" fill="#eddcb2" stroke="#a9895a"/>
+            <path d="M0 14 L65 52 L130 14" fill="none" stroke="#a9895a" stroke-width="2"/>
+            <circle cx="65" cy="44" r="9" fill="#6e2b36"/>
+          </svg>
+          <span class="label">Letters</span>
+        </div>
+
+        <!-- feather pen -->
+        <div class="obj" id="obj-pen" tabindex="0" role="button" aria-label="Feather pen — new entry">
+          <svg viewBox="0 0 210 60">
+            <path d="M10 50 C 60 20, 140 10, 200 6 C 150 14, 90 30, 40 46 Z" fill="#f2e6c8"/>
+            <path d="M10 50 C 60 20, 140 10, 200 6" fill="none" stroke="#3c2a1d" stroke-width="1.4"/>
+            <path d="M200 6 L206 2 L204 12 Z" fill="#2a1a10"/>
+          </svg>
+          <span class="label">New page</span>
+        </div>
+
+        <!-- ink bottle -->
+        <div class="obj" id="obj-ink" tabindex="0" role="button" aria-label="Ink bottle — quick actions">
+          <svg viewBox="0 0 96 96">
+            <rect x="18" y="34" width="60" height="48" rx="6" fill="#243a2c" opacity=".92"/>
+            <rect x="30" y="16" width="36" height="20" rx="3" fill="#4a3b2c"/>
+            <rect x="34" y="8" width="28" height="10" rx="2" fill="#b6924f"/>
+            <ellipse cx="48" cy="40" rx="24" ry="6" fill="#101d15"/>
+          </svg>
+          <span class="label">Quick write</span>
+        </div>
+
+        <!-- diary -->
+        <div class="obj" id="obj-diary" tabindex="0" role="button" aria-label="Open diary — journal">
+          <svg viewBox="0 0 230 150">
+            <rect x="6" y="10" width="218" height="130" rx="4" fill="#5a3f29"/>
+            <rect x="10" y="14" width="105" height="122" rx="2" fill="#f2e6c8"/>
+            <rect x="115" y="14" width="105" height="122" rx="2" fill="#f2e6c8"/>
+            <rect x="112" y="10" width="6" height="130" fill="#3c2a1d"/>
+            <rect x="70" y="4" width="20" height="46" fill="#8a3a45"/>
+            <circle cx="60" cy="76" r="3" fill="#c9b487"/>
+            <circle cx="60" cy="90" r="3" fill="#c9b487"/>
+            <circle cx="60" cy="104" r="3" fill="#c9b487"/>
+            <path d="M170 40 h35 M170 55 h35 M170 70 h35" stroke="#c9b487" stroke-width="2"/>
+            <rect x="6" y="10" width="218" height="130" rx="4" fill="none" stroke="#29190f" stroke-width="2"/>
+          </svg>
+          <span class="label">Journal</span>
+        </div>
+
+        <!-- globe -->
+        <div class="obj" id="obj-globe" tabindex="0" role="button" aria-label="Globe — pen pals">
+          <svg viewBox="0 0 130 130">
+            <rect x="55" y="90" width="20" height="26" fill="#3c2a1d"/>
+            <ellipse cx="65" cy="118" rx="30" ry="6" fill="#29190f"/>
+            <g class="globe-sphere" style="transform-origin:65px 62px;">
+              <circle cx="65" cy="62" r="42" fill="#6b7245"/>
+              <ellipse cx="65" cy="62" rx="42" ry="14" fill="none" stroke="#f2e6c8" stroke-width="1.4" opacity=".6"/>
+              <ellipse cx="65" cy="62" rx="20" ry="42" fill="none" stroke="#f2e6c8" stroke-width="1.4" opacity=".6"/>
+              <path d="M35 45 q10 10 0 24 q14 6 8 20" fill="none" stroke="#e3c37f" stroke-width="4" opacity=".8"/>
+              <path d="M78 30 q14 12 4 30 q10 10 -2 24" fill="none" stroke="#e3c37f" stroke-width="4" opacity=".8"/>
+            </g>
+          </svg>
+          <span class="label">Pen pals</span>
+        </div>
+
+        <!-- camera -->
+        <div class="obj" id="obj-camera" tabindex="0" role="button" aria-label="Vintage camera — photo memories">
+          <svg viewBox="0 0 130 100">
+            <rect x="10" y="30" width="110" height="60" rx="6" fill="#3c2a1d"/>
+            <rect x="40" y="14" width="30" height="20" rx="2" fill="#3c2a1d"/>
+            <circle cx="65" cy="60" r="24" fill="#101d15"/>
+            <circle cx="65" cy="60" r="16" fill="#4a3b2c"/>
+            <circle cx="65" cy="60" r="8" fill="#8a8a8a"/>
+            <rect x="94" y="40" width="14" height="10" fill="#b6924f"/>
+          </svg>
+          <span class="label">Memories</span>
+        </div>
+
+        <!-- calendar -->
+        <div class="obj" id="obj-calendar" tabindex="0" role="button" aria-label="Calendar — timeline">
+          <svg viewBox="0 0 120 120">
+            <rect x="10" y="16" width="100" height="94" rx="4" fill="#f2e6c8" stroke="#3c2a1d" stroke-width="2"/>
+            <rect x="10" y="16" width="100" height="20" fill="#6e2b36"/>
+            <rect x="30" y="4" width="6" height="20" fill="#3c2a1d"/>
+            <rect x="84" y="4" width="6" height="20" fill="#3c2a1d"/>
+            <g stroke="#a9895a">
+              <line x1="10" y1="54" x2="110" y2="54"/>
+              <line x1="10" y1="72" x2="110" y2="72"/>
+              <line x1="10" y1="90" x2="110" y2="90"/>
+              <line x1="34" y1="36" x2="34" y2="110"/>
+              <line x1="58" y1="36" x2="58" y2="110"/>
+              <line x1="82" y1="36" x2="82" y2="110"/>
+            </g>
+            <circle cx="82" cy="63" r="6" fill="#8a3a45"/>
+          </svg>
+          <span class="label">Timeline</span>
+        </div>
+
+        <!-- candle -->
+        <div class="obj" id="obj-candle" tabindex="0" role="button" aria-label="Candle — toggle day and night">
+          <svg viewBox="0 0 90 120">
+            <ellipse cx="45" cy="112" rx="34" ry="7" fill="#101d15" opacity=".4"/>
+            <rect x="30" y="46" width="30" height="60" rx="3" fill="#eddcb2"/>
+            <rect x="30" y="46" width="30" height="60" rx="3" fill="url(#waxdrip)" opacity=".5"/>
+            <line x1="45" y1="46" x2="45" y2="34" stroke="#3c2a1d" stroke-width="2"/>
+            <g class="flame">
+              <ellipse cx="45" cy="22" rx="9" ry="15" fill="#e3922f"/>
+              <ellipse cx="45" cy="24" rx="5" ry="9" fill="#ffdf8a"/>
+            </g>
+            <defs>
+              <linearGradient id="waxdrip" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#eddcb2"/>
+                <stop offset="1" stop-color="#cdb98a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span class="label" id="candleLabel">Dim the room</span>
+        </div>
+
+      </div>
+
+      <div class="leaves" id="leaves"></div>
+      <div class="dust" id="dust"></div>
+    </section>
+
+  </div>
+</div>
+
+<div id="overlay" role="dialog" aria-modal="true">
+  <div class="panel" id="panel">
+    <button class="close-seal" id="closePanel" aria-label="Close">&times;</button>
+    <div id="panelBody"></div>
+  </div>
+</div>
+
+<script src="/js/router.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/music.js"></script>
+<script src="/js/letters.js"></script>
+<script src="/js/journal.js"></script>
+<script src="/js/penpals.js"></script>
+<script src="/js/landing.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

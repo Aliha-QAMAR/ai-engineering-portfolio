@@ -1,0 +1,32 @@
+/* =========================================================
+   JOURNAL PANEL
+   ========================================================= */
+.journal-tabs{ display:flex; gap:1.4rem; margin-bottom:1.2rem; border-bottom:1px solid var(--paper-shadow); }
+.journal-tab{
+  background:none; border:none; cursor:pointer; padding:.4rem 0 .7rem;
+  font-family:'Cormorant SC', serif; letter-spacing:.08em; text-transform:uppercase;
+  font-size:.8rem; color:var(--paper-shadow); border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.journal-tab.active{ color:var(--burgundy); border-color:var(--burgundy); }
+
+.visibility-row{ display:flex; gap:.6rem; margin-top:.3rem; }
+.vis-chip{
+  font-family:'Cormorant SC', serif; letter-spacing:.05em; text-transform:capitalize;
+  font-size:.8rem; padding:.4rem .9rem; border-radius:20px;
+  background:var(--paper); border:1px solid var(--paper-shadow); color:var(--ink-soft);
+  cursor:pointer;
+}
+.vis-chip.active{ background:var(--olive); color:var(--cream); border-color:var(--olive); }
+
+.book-list{ display:flex; flex-direction:column; gap:1rem; }
+.book-entry{
+  background:var(--paper); border:1px solid var(--paper-shadow); border-radius:2px;
+  padding:1.2rem 1.3rem;
+}
+.book-entry .be-head{ display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; }
+.book-entry .be-title{ font-weight:600; font-size:1.05rem; }
+.book-entry .be-author{ font-style:italic; color:var(--brass); font-size:.85rem; }
+.book-entry .be-topic{ font-size:.78rem; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em; margin:.15rem 0 .5rem; }
+.book-entry .be-body{ color:var(--ink); line-height:1.6; }
+.book-entry .be-foot{ display:flex; justify-content:space-between; align-items:center; margin-top:.7rem; }
+.book-entry .be-when{ font-size:.78rem; color:var(--paper-shadow); }

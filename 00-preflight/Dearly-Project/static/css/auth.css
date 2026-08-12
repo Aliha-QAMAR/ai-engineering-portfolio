@@ -1,0 +1,86 @@
+/* =========================================================
+   AUTH SCREEN — sign up / sign in, letters that burn in from the side
+   ========================================================= */
+#screen-auth{
+  background:var(--walnut-3);
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+#screen-auth::before{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 800px 500px at 50% 40%, rgba(180,140,80,.10), transparent 65%);
+  pointer-events:none;
+}
+
+.auth-wrap{ position:relative; width:min(460px, 90vw); z-index:2; }
+
+.auth-tabs{
+  display:flex; justify-content:center; gap:1.6rem; margin-bottom:1.2rem;
+}
+.auth-tab{
+  background:none; border:none; cursor:pointer;
+  font-family:'Cormorant SC', serif; letter-spacing:.12em; text-transform:uppercase;
+  font-size:.85rem; color:#b39a71; padding:.3rem 0; border-bottom:2px solid transparent;
+  transition:color .2s ease, border-color .2s ease;
+}
+.auth-tab.active{ color:var(--brass-light); border-color:var(--brass-light); }
+
+.letter-page{
+  position:relative;
+  background:var(--cream);
+  border-radius:2px;
+  padding:2.6rem 2.4rem 2.2rem;
+  box-shadow:0 30px 70px rgba(0,0,0,.5);
+  overflow:hidden;
+}
+.letter-page.hidden{ display:none; }
+
+/* burn-in reveal */
+.letter-page.burn-in{
+  animation: burnClip .95s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes burnClip{
+  0%{ clip-path: polygon(0 0, 4% 0, 0% 50%, 6% 100%, 0 100%); filter:brightness(2.4) sepia(.6); }
+  55%{ clip-path: polygon(0 0, 62% 0, 55% 50%, 66% 100%, 0 100%); filter:brightness(1.6) sepia(.35); }
+  100%{ clip-path: polygon(0 0, 100% 0, 100% 50%, 100% 100%, 0 100%); filter:brightness(1) sepia(0); }
+}
+.ember-edge{
+  position:absolute; top:0; bottom:0; width:34px;
+  background:linear-gradient(90deg, transparent, rgba(255,150,60,.55), rgba(255,210,120,.85), rgba(255,150,60,.55), transparent);
+  filter:blur(3px);
+  pointer-events:none;
+  animation: emberSweep .95s cubic-bezier(.4,0,.2,1) forwards;
+  opacity:0;
+}
+@keyframes emberSweep{
+  0%{ left:0%; opacity:1; }
+  90%{ opacity:1; }
+  100%{ left:100%; opacity:0; }
+}
+
+.letter-page h3{
+  font-family:'Herr Von Muellerhoff', cursive;
+  font-size:2.4rem; margin:0 0 .1rem; color:var(--burgundy); font-weight:400; text-align:center;
+}
+.letter-page .sub{ font-style:italic; color:var(--ink-soft); margin:0 0 1.6rem; text-align:center; }
+
+.auth-form{ display:flex; flex-direction:column; gap:1rem; }
+.auth-form input{
+  font-family:'EB Garamond', serif; font-size:1.05rem;
+  padding:.7rem .8rem; border:1px solid var(--paper-shadow); background:var(--paper); color:var(--ink);
+}
+.auth-form input:focus{ outline:2px solid var(--brass-light); outline-offset:1px; }
+
+.auth-submit{ margin-top:.4rem; width:100%; }
+
+.auth-foot-note{
+  margin-top:1.4rem; text-align:center; font-style:italic; color:var(--ink-soft); font-size:.85rem;
+}
+
+.landing-link{
+  display:block; margin:1.2rem auto 0; text-align:center;
+  font-family:'Cormorant SC', serif; letter-spacing:.1em; text-transform:uppercase;
+  font-size:.72rem; color:#b39a71; background:none; border:none; cursor:pointer;
+}
+.landing-link:hover{ color:var(--brass-light); }

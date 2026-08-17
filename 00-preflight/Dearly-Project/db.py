@@ -1,16 +1,6 @@
-"""
-db.py — tiny SQLite helper for Dearly.
-
-Everything is saved to dearly.db, a single file that sits next to app.py.
-It is created automatically the first time the server runs and is never
-wiped — every signup, letter, journal entry and pen-pal request lives here
-permanently, keyed by the user's id.
-"""
 import sqlite3
 import os
-
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dearly.db")
-
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
@@ -40,9 +30,6 @@ def init_db():
             FOREIGN KEY(user_id) REFERENCES users(id)
         )
     """)
-
-    # ---- tables below are created now so later phases (letters, journals,
-    # pen pals) don't need a migration step — Phase 1 does not use them yet.
     cur.execute("""
         CREATE TABLE IF NOT EXISTS letters (
             id TEXT PRIMARY KEY,

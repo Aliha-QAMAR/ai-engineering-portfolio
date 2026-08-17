@@ -16,8 +16,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 app = Flask(__name__, static_folder=STATIC_DIR, static_url_path="")
-
-# make sure the database + tables exist before we take any requests
 init_db()
 
 app.register_blueprint(auth_bp, url_prefix="/api/auth")
@@ -25,8 +23,6 @@ app.register_blueprint(letters_bp, url_prefix="/api/letters")
 app.register_blueprint(journals_bp, url_prefix="/api/journals")
 app.register_blueprint(penpals_bp, url_prefix="/api/penpals")
 app.register_blueprint(ai_bp, url_prefix="/api/ai")
-
-
 @app.route("/")
 def index():
     return send_from_directory(STATIC_DIR, "index.html")

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Archive{% endblock %}
+{% block content %}
+<div id="archive-screen" class="screen-container archive-screen">
+    <div class="room-background"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div class="archive-header">
+        <div class="archive-title">
+            <h1>Case Archive</h1>
+            <p>Wooden drawers holding every investigation this bureau has ever opened.</p>
+        </div>
+        <div class="archive-controls">
+            <input type="text" id="archive-search" class="document-input archive-search" placeholder="Search cases by name or number…">
+            <div class="archive-filters" id="archive-filters">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="active">Active</button>
+                <button class="filter-chip" data-filter="solved">Solved</button>
+                <button class="filter-chip" data-filter="featured">Featured</button>
+                <button class="filter-chip" data-filter="closed">Closed</button>
+                <button class="filter-chip" data-filter="deleted">Removed</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="archive-drawers" class="archive-drawers">
+        <div class="panel-empty">Loading the archive…</div>
+    </div>
+
+    <div id="orion-archive" class="orion-slot orion-slot-small" style="right:4%;bottom:6%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/archive.js') }}"></script>
+{% endblock %}

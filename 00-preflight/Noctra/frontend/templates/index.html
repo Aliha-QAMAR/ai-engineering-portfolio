@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Beyond the Obvious.{% endblock %}
+{% block content %}
+<div id="landing-screen" class="screen-container">
+    <!-- Scene (desk, board, everything) - injected by scene.js -->
+    <div id="desk-scene" style="position:absolute;inset:0;"></div>
+    
+    <!-- Window Rain -->
+    <div id="window-rain" style="position:absolute;left:3.5%;top:13%;width:20%;height:46%;overflow:hidden;z-index:4;border-radius:2px;"></div>
+    
+    <!-- Ambient Rain -->
+    <div id="ambient-rain" style="position:absolute;inset:0;overflow:hidden;opacity:0.28;z-index:4;"></div>
+    
+    <!-- Dust -->
+    <div id="dust-layer" style="position:absolute;inset:0;pointer-events:none;z-index:6;"></div>
+    
+    <!-- Lightning Overlay -->
+    <div id="lightning-overlay"></div>
+    
+    <!-- NOCTRA Branding -->
+    <div style="position:absolute;left:50%;top:55%;transform:translateX(-50%);text-align:center;z-index:8;pointer-events:none;white-space:nowrap;">
+        <h1 class="noctra-wordmark" style="font-size:clamp(32px,5.5vw,78px);line-height:1;margin-bottom:0.12em;">NOCTRA</h1>
+        <p class="noctra-tagline" style="font-size:clamp(11px,1.3vw,20px);">Beyond the Obvious.</p>
+    </div>
+    
+    <!-- Confidential Folder -->
+    <div id="folder-container" style="position:absolute;left:50%;top:63%;transform:translateX(-50%);z-index:10;">
+        <!-- Folder SVG will be created here by app.js -->
+    </div>
+    
+    <!-- Orion positioned bottom-right -->
+    <div id="orion-landing" style="position:absolute;right:11%;bottom:22%;z-index:9;"></div>
+    
+    <!-- Bottom Vignette -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:14%;background:linear-gradient(to top, rgba(2,1,0,0.7), transparent);pointer-events:none;z-index:20;"></div>
+    
+    <!-- Footer Text -->
+    <div style="position:absolute;bottom:24px;left:32px;z-index:25;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.28);">
+        Est. 2026 · Intelligence Bureau
+    </div>
+    <div style="position:absolute;bottom:24px;right:32px;z-index:25;font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:0.12em;color:rgba(201,168,76,0.28);font-style:italic;">
+        Open the folder to begin
+    </div>
+</div>
+{% endblock %}

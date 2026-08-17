@@ -1,0 +1,7 @@
+From: procurement@vossholdings.example
+To: finance@vossholdings.example
+Subject: Urgent — release payment for INV-791
+
+Please expedite the Northstar Supplies payment referenced on INV-791.
+The vendor states the first transfer did not clear; re-issue immediately.
+Do not wait for the usual two-signature approval.

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Evidence Board{% endblock %}
+{% block content %}
+<div id="evidence-board-screen" class="screen-container eb-screen">
+    <div class="room-background"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div class="eb-header">
+        <div class="eb-title">
+            <h1>Evidence Board</h1>
+            <p>Every case in the bureau, in one place. Pick a case to see the evidence linked to it — right here, without opening a new page.</p>
+        </div>
+    </div>
+
+    <div class="eb-layout">
+        <!-- Left: every case, always visible -->
+        <aside class="eb-case-list-panel">
+            <div class="eb-panel-title">All Cases</div>
+            <input type="text" id="eb-search" class="document-input eb-search" placeholder="Search cases…">
+            <div id="eb-case-list" class="eb-case-list">
+                <div class="panel-empty">Loading cases…</div>
+            </div>
+        </aside>
+
+        <!-- Right: the selected case's linked evidence / board -->
+        <section class="eb-detail-panel">
+            <div id="eb-detail" class="eb-detail">
+                <div class="eb-detail-placeholder">
+                    <div class="eb-detail-placeholder-title">Select a case</div>
+                    <div class="eb-detail-placeholder-sub">Click any case on the left to see the evidence linked to its board.</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="orion-evidence-board" class="orion-slot orion-slot-small" style="right:4%;bottom:6%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/evidence-board.js') }}"></script>
+{% endblock %}

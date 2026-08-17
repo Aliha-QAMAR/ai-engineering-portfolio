@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Investigator Identity{% endblock %}
+{% block content %}
+<div id="auth-screen" class="screen-container auth-screen">
+    <!-- Dark atmospheric background with desk surface -->
+    <div class="room-background"></div>
+    <div class="desk-surface-bg"></div>
+    
+    <!-- Lamp glow from above -->
+    <div class="auth-lamp-glow"></div>
+    
+    <!-- Authentication Document -->
+    <div id="auth-document" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;">
+        <div class="paper-texture document-form" style="width:520px;max-width:90vw;padding:50px 45px;">
+            <!-- Document Header -->
+            <div style="text-align:center;margin-bottom:36px;">
+                <div style="width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 38% 32%, #a02020, #620e0e);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(140,20,20,0.4);">
+                    <span style="font-family:'Cinzel',serif;font-size:18px;color:rgba(240,220,180,0.85);font-weight:600;">N</span>
+                </div>
+                <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;color:var(--crimson);margin-bottom:12px;">CLASSIFIED · LEVEL ALPHA</div>
+                <h2 style="font-family:'Cinzel',serif;font-size:22px;letter-spacing:0.15em;color:var(--text-dark);">INVESTIGATOR IDENTITY</h2>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.2em;color:var(--text-subtle);font-style:italic;margin-top:8px;">NOCTRA Investigation Bureau · Est. 2026</div>
+                <div style="width:60%;height:1px;background:var(--text-subtle);opacity:0.2;margin:20px auto 0;"></div>
+            </div>
+            
+            <!-- Auth Form -->
+            <form id="auth-form" autocomplete="off">
+                <div style="margin-bottom:24px;">
+                    <label style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--text-medium);text-transform:uppercase;display:block;margin-bottom:8px;">CODENAME</label>
+                    <input type="text" id="auth-codename" class="document-input" placeholder="Enter your codename..." required autocomplete="off">
+                </div>
+                <div style="margin-bottom:32px;">
+                    <label style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:2px;color:var(--text-medium);text-transform:uppercase;display:block;margin-bottom:8px;">PASSPHRASE</label>
+                    <input type="password" id="auth-password" class="document-input" placeholder="Enter your passphrase..." required autocomplete="off">
+                </div>
+                
+                <!-- Error message area -->
+                <div id="auth-error" style="display:none;font-family:'Courier Prime',monospace;font-size:12px;color:var(--crimson);text-align:center;margin-bottom:16px;"></div>
+                
+                <!-- Action Buttons -->
+                <div style="display:flex;gap:16px;justify-content:center;">
+                    <button type="button" id="btn-login" class="brass-button">ACCESS ARCHIVES</button>
+                    <button type="button" id="btn-register" class="brass-button" style="opacity:0.7;">CREATE DOSSIER</button>
+                </div>
+            </form>
+            
+            <!-- Document Footer -->
+            <div style="margin-top:36px;text-align:center;">
+                <div style="width:40%;height:1px;background:var(--text-subtle);opacity:0.15;margin:0 auto 12px;"></div>
+                <div style="font-family:'Courier Prime',monospace;font-size:9px;letter-spacing:1px;color:var(--text-subtle);opacity:0.5;">AUTHORIZED PERSONNEL ONLY · FILE REF: NOC-AUTH-2026</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ACCESS GRANTED Stamp (hidden until success) -->
+    <div id="access-granted-stamp" class="stamp-animation" style="display:none;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);z-index:50;pointer-events:none;">
+        <div style="border:4px solid var(--crimson);padding:12px 36px;">
+            <span style="font-family:'Cinzel',serif;font-size:36px;letter-spacing:6px;color:var(--crimson);font-weight:700;">ACCESS GRANTED</span>
+        </div>
+    </div>
+    
+    <!-- Orion in corner -->
+    <div id="orion-auth" style="position:absolute;left:8%;bottom:12%;z-index:20;"></div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NOCTRA — Beyond the Obvious.{% endblock %}</title>
+    <meta name="description" content="NOCTRA — AI Detective Investigation Platform. Beyond the Obvious.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/noctra.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/screens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app-screens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/features.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Atmosphere Layer (persistent) -->
+    <div id="atmosphere-layer" style="position:fixed;inset:0;pointer-events:none;z-index:100;"></div>
+    
+    <!-- Orion Container (persistent across screens) -->
+    <div id="orion-container" style="position:fixed;z-index:90;"></div>
+    
+    <!-- Orion Speech Bubble -->
+    <div id="orion-speech" class="orion-speech" style="display:none;"></div>
+    
+    <!-- Screen Container -->
+    <div id="screen-container" style="width:100vw;height:100vh;overflow:hidden;position:relative;background:#030201;">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

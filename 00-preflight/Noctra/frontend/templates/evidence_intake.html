@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Evidence Intake{% endblock %}
+{% block content %}
+<div id="evidence-intake-screen" class="screen-container intake-screen"
+     data-investigation-id="{{ investigation.id }}">
+    <div class="room-background"></div>
+    <div class="desk-surface-bg"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div class="intake-header">
+        <div class="intake-eyebrow">Evidence Desk</div>
+        <div class="intake-title">{{ investigation.case_name }}</div>
+        <div class="intake-case-number">{{ investigation.case_number }}</div>
+        <div class="intake-instructions">
+            Add every piece of evidence you have. Orion will look over each item
+            and surface anything worth a second look — nothing becomes part of
+            the case until you say so.
+        </div>
+    </div>
+
+    <div class="intake-body">
+        <div class="intake-dropzone" id="intake-dropzone">
+            <div class="intake-dropzone-icon">⤓</div>
+            <div class="intake-dropzone-text">Drop evidence here, or click to attach</div>
+            <div class="intake-dropzone-hint">PDF · TXT · CSV · DOCX · Images · Screenshots</div>
+            <input type="file" id="intake-file-input" multiple hidden
+                   accept=".csv,.pdf,.png,.jpg,.jpeg,.mp3,.wav,.txt,.doc,.docx">
+        </div>
+
+        <div id="intake-evidence-list" class="intake-evidence-list">
+            <div class="intake-empty">No evidence added yet.</div>
+        </div>
+    </div>
+
+    <div class="intake-footer">
+        <a href="/investigation/{{ investigation.id }}" id="btn-continue-board" class="brass-button brass-button-lg">
+            Continue to Evidence Board
+        </a>
+        <span class="intake-hint">Add at least one exhibit to continue.</span>
+    </div>
+
+    <div id="orion-intake" class="orion-slot" style="right:5%;bottom:8%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/investigation.js') }}"></script>
+{% endblock %}

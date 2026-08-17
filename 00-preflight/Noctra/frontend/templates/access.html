@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Access Clearance{% endblock %}
+{% block content %}
+<div id="access-screen" class="screen-container access-screen">
+    <!-- Same dark atmospheric background -->
+    <div class="room-background"></div>
+    
+    <!-- Desk surface (partial view — closer angle) -->
+    <div id="access-desk-surface"></div>
+    
+    <!-- Opening folder animation (large, centered) -->
+    <div id="access-folder" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;">
+        <!-- Large folder SVG opening animation -->
+        <!-- Wax seal breaking -->
+        <!-- Documents sliding out -->
+    </div>
+    
+    <!-- Personnel File emerging from folder -->
+    <div id="personnel-file" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(0);opacity:0;z-index:15;">
+        <div class="paper-texture" style="width:500px;padding:60px 50px;">
+            <div style="text-align:center;margin-bottom:40px;">
+                <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;color:var(--crimson);margin-bottom:8px;">CLASSIFIED</div>
+                <div style="width:100%;height:1px;background:var(--crimson);opacity:0.3;"></div>
+                <h2 style="font-family:'Cinzel',serif;font-size:24px;letter-spacing:0.15em;color:var(--text-dark);margin-top:20px;">PERSONNEL FILE</h2>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:0.2em;color:var(--text-subtle);font-style:italic;margin-top:8px;">NOCTRA Investigation Bureau</div>
+            </div>
+            
+            <div style="text-align:center;margin-top:40px;">
+                <p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--text-medium);font-style:italic;letter-spacing:0.1em;">Identity verification required to proceed.</p>
+                <button id="proceed-to-auth" class="brass-button" style="margin-top:30px;">
+                    VERIFY IDENTITY
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Orion watches from side -->
+    <div id="orion-access" style="position:absolute;right:8%;bottom:15%;z-index:20;"></div>
+</div>
+{% endblock %}

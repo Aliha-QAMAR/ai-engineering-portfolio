@@ -1,0 +1,18 @@
+NOCTRA CASE EVIDENCE — EMAIL EXTRACT
+Case: NOC-2026-001
+Source: Internal procurement mailbox
+Date: 2026-03-03
+Subject: RE: INV-791 payment confirmation
+
+From: procurement@northstarsupplies.example
+To: accounts@client.example
+
+Please process the attached invoice as usual. The amount is the same as the
+previous invoice because it covers the same shipment cycle.
+
+Attachment reference: INV-791.pdf
+
+Internal note:
+The procurement mailbox contains two separate payment confirmations for
+invoice INV-791 on 2026-03-04. Both confirmations reference the same vendor,
+same account, and same invoice number.

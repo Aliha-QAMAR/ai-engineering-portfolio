@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Settings{% endblock %}
+{% block content %}
+<div id="settings-screen" class="screen-container settings-screen">
+    <div class="room-background"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div class="notebook leather-texture">
+        <div class="notebook-spine"></div>
+        <div class="notebook-page">
+            <div class="notebook-title">Investigator's Notebook</div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Profile</div>
+                <div class="settings-row">
+                    <span class="settings-label">Codename</span>
+                    <span id="settings-codename" class="settings-value">—</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Clearance Level</span>
+                    <span id="settings-clearance" class="settings-value">—</span>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Theme</div>
+                <div class="settings-row">
+                    <span class="settings-label">Bureau Atmosphere</span>
+                    <span class="settings-value">Midnight (locked)</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Reduced Motion</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-reduced-motion">
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Notifications</div>
+                <div class="settings-row">
+                    <span class="settings-label">Desk Lamp Alerts</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-lamp-alerts" checked>
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Orion's Remarks</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-orion-remarks" checked>
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Investigation Preferences</div>
+                <div class="settings-row">
+                    <span class="settings-label">Default Mode</span>
+                    <select id="pref-mode" class="noc-select">
+                        <option value="autonomous">Autonomous</option>
+                        <option value="guided">Guided</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Ambient Sound</div>
+                <div class="settings-row">
+                    <span class="settings-label">Rain &amp; Clock</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-ambient">
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Voice Settings</div>
+                <div class="settings-row">
+                    <span class="settings-label">Narration</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-narration" checked>
+                        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">AI Voice</span>
+                    <select id="pref-voice" class="noc-select">
+                        <option value="onyx">Onyx — calm, detective</option>
+                        <option value="echo">Echo — warm</option>
+                        <option value="alloy">Alloy — neutral</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <div class="settings-block-title">Security</div>
+                <div class="settings-row">
+                    <span class="settings-label">Prompt-Injection Shield</span>
+                    <span class="settings-value" style="color:#2a6a2a;">Active · always on</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Evidence Sandbox</span>
+                    <span class="settings-value" style="color:#2a6a2a;">Enforced</span>
+                </div>
+            </div>
+
+            <div class="settings-block">
+                <button id="btn-settings-logout" class="brass-button">Seal Session &amp; Sign Out</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="orion-settings" class="orion-slot orion-slot-small" style="right:6%;bottom:8%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/settings.js') }}"></script>
+{% endblock %}

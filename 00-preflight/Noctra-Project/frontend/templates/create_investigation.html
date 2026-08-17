@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — New Investigation{% endblock %}
+{% block content %}
+<div id="create-investigation-screen" class="screen-container create-screen">
+    <div class="room-background"></div>
+    <div class="desk-surface-bg"></div>
+    <div class="auth-lamp-glow"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div id="case-folder" class="paper-texture document-form case-form fade-in">
+        <div class="case-form-header">
+            <div class="wax-seal wax-seal-sm">N</div>
+            <div class="case-form-title">CASE FILE</div>
+            <div class="case-form-sub">New Investigation — NOC-{{ '2026' }}-????</div>
+        </div>
+
+        <form id="case-form" autocomplete="off">
+            <div class="field-group">
+                <label>Case Name</label>
+                <input type="text" id="case-name" class="document-input" placeholder="e.g. The Meridian Wire Transfer" required>
+            </div>
+            <div class="field-group">
+                <label>Description</label>
+                <textarea id="case-description" class="document-input case-textarea" rows="4" placeholder="Summarize what is known so far..."></textarea>
+            </div>
+
+            <div class="field-group">
+                <label>Evidence</label>
+                <div id="evidence-dropzone" class="evidence-dropzone">
+                    <div class="evidence-dropzone-icon">⤓</div>
+                    <div class="evidence-dropzone-text">Drop evidence here or click to attach</div>
+                    <div class="evidence-dropzone-hint">CSV · PDF · Images · Audio · Notes</div>
+                    <input type="file" id="evidence-input" multiple hidden
+                           accept=".csv,.pdf,.png,.jpg,.jpeg,.mp3,.wav,.txt,.doc,.docx">
+                </div>
+                <div id="evidence-list" class="evidence-list"></div>
+            </div>
+
+            <div id="case-error" class="form-error"></div>
+
+            <div class="case-form-actions">
+                <button type="submit" id="btn-begin" class="brass-button brass-button-lg">
+                    Begin Investigation
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div id="orion-create" class="orion-slot" style="right:6%;bottom:10%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/investigation.js') }}"></script>
+{% endblock %}

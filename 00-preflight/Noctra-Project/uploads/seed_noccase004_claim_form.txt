@@ -1,0 +1,4 @@
+Claimant: R. Vance
+Policy: HP-88123
+Incident: Burst pipe, kitchen and hallway.
+Requested amount: 24300. Two contractor invoices attached for the same repair.

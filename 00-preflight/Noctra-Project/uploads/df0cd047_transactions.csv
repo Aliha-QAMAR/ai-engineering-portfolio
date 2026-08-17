@@ -1,0 +1,16 @@
+date,transaction_id,vendor,account,invoice_id,amount,currency,status
+2026-01-05,TX-1001,Northstar Supplies,A-1042,INV-771,12500,USD,approved
+2026-01-12,TX-1002,Northstar Supplies,A-1042,INV-772,13800,USD,approved
+2026-01-18,TX-1003,Northstar Supplies,A-1042,INV-773,13750,USD,approved
+2026-01-22,TX-1004,Northstar Supplies,A-1042,INV-773,13750,USD,approved
+2026-02-03,TX-1005,Northstar Supplies,A-1042,INV-781,14200,USD,approved
+2026-02-11,TX-1006,Northstar Supplies,A-1042,INV-782,14150,USD,approved
+2026-02-15,TX-1007,Northstar Supplies,A-1042,INV-782,14150,USD,approved
+2026-02-19,TX-1008,Blue Harbor Logistics,A-2088,INV-441,6200,USD,approved
+2026-02-26,TX-1009,Blue Harbor Logistics,A-2088,INV-442,6450,USD,approved
+2026-03-02,TX-1010,Northstar Supplies,A-1042,INV-790,15100,USD,approved
+2026-03-04,TX-1011,Northstar Supplies,A-1042,INV-791,15250,USD,approved
+2026-03-04,TX-1012,Northstar Supplies,A-1042,INV-791,15250,USD,approved
+2026-03-11,TX-1013,Northstar Supplies,A-1042,INV-799,15300,USD,approved
+2026-03-18,TX-1014,Northstar Supplies,A-1042,INV-803,15600,USD,approved
+2026-03-21,TX-1015,Northstar Supplies,A-1042,INV-804,15800,USD,approved

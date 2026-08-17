@@ -1,0 +1,8 @@
+date,department,employee,receipt_id,amount
+2026-06-01,Sales,A. Khan,RCP-501,220
+2026-06-01,Sales,A. Khan,RCP-501,220
+2026-06-02,Engineering,B. Ortiz,RCP-502,90
+2026-06-03,Sales,C. Duval,RCP-503,410
+2026-06-05,Marketing,D. Two,RCP-504,150
+2026-06-07,Engineering,E. Lin,RCP-505,75
+2026-06-09,Sales,A. Khan,RCP-506,320

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — {{ investigation.case_name }}{% endblock %}
+{% block content %}
+<div id="workspace-screen" class="screen-container board-screen"
+     data-investigation-id="{{ investigation.id }}">
+    <div class="room-background"></div>
+
+    <div class="board-header">
+        <a href="/investigation/{{ investigation.id }}/evidence" class="back-link back-link-inline">← Evidence Desk</a>
+        <div class="board-title-wrap">
+            <span class="board-case-name">{{ investigation.case_name }}</span>
+            <span class="board-case-number">{{ investigation.case_number }}</span>
+        </div>
+        <div class="board-header-right">
+            <div class="confidence-meter" id="confidence-meter" title="Case confidence">
+                <div class="confidence-label">CASE CONFIDENCE</div>
+                <div class="confidence-bar"><div class="confidence-fill" id="confidence-fill" style="width:0%"></div></div>
+                <div class="confidence-pct" id="confidence-pct">—</div>
+            </div>
+            <div class="case-options" id="case-options">
+                <button id="btn-case-options" class="board-icon-btn" title="Case options" aria-haspopup="true" aria-expanded="false">
+                    <span class="dots"><i></i><i></i><i></i></span>
+                    <span class="case-options-label">Case Options</span>
+                </button>
+                <div id="case-options-menu" class="case-options-menu" hidden>
+                    <div class="com-section-title">This Case</div>
+                    <button class="com-item" id="com-arrange" data-action="arrange">Arrange Board</button>
+                    <button class="com-item" id="com-highlight" data-action="highlight">Highlight Main Clues</button>
+                    <div class="com-divider"></div>
+                    <div class="com-section-title">Switch Case</div>
+                    <div id="com-case-list" class="com-case-list">
+                        <div class="com-empty">Loading…</div>
+                    </div>
+                    <div class="com-divider"></div>
+                    <a href="/hub" class="com-item com-link">← All Cases</a>
+                </div>
+            </div>
+            <a id="btn-case-report" href="/investigation/{{ investigation.id }}/report"
+               class="brass-button brass-button-sm report-locked">Case Report</a>
+        </div>
+    </div>
+
+    <div class="board-main">
+        <!-- The evidence board (empty until the investigator places clues) -->
+        <div class="board-canvas-wrap">
+            <div id="board-canvas" class="board-canvas">
+                <svg id="board-strings" class="board-strings"></svg>
+                <div id="sticky-layer" class="sticky-layer"></div>
+                <div id="board-empty" class="board-empty">
+                    <div class="board-empty-title">Empty Evidence Board</div>
+                    <div class="board-empty-sub">Nothing has been connected yet.<br>Pull a clue from Case Files onto the board, then draw a string between two clues to test a connection.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Case Files: every confirmed clue lives here, on the board or not -->
+        <aside class="clue-tray-panel">
+            <div class="tray-title">Case Files</div>
+            <div id="tray-list" class="tray-list">
+                <div class="tray-empty">No confirmed clues yet. Return to the Evidence Desk to mark clues.</div>
+            </div>
+            <div class="tray-actions">
+                <button id="btn-review-evidence" class="board-ghost-btn">Review Evidence</button>
+                <button id="btn-check-patterns" class="board-ghost-btn">Check Previous Cases</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Orion contextual alert host (missing links / patterns) -->
+    <div id="orion-alert" class="orion-alert" style="display:none;"></div>
+
+    <div id="orion-workspace" class="orion-slot orion-slot-small" style="left:2%;bottom:6%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/investigation.js') }}"></script>
+{% endblock %}

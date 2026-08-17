@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Investigation Hub{% endblock %}
+{% block content %}
+<div id="hub-screen" class="screen-container hub-screen">
+    <!-- Full Office Scene Background -->
+    <div class="room-background"></div>
+    
+    <!-- Office Scene SVG (similar to landing but from a different 'camera angle' — more of the desk visible) -->
+    <div id="hub-scene" style="position:absolute;inset:0;"></div>
+    
+    <!-- Interactive Office Elements overlaid on the scene -->
+    
+    <!-- NOCTRA Header (subtle, not a navbar) -->
+    <div style="position:absolute;top:24px;left:32px;z-index:30;display:flex;align-items:center;gap:12px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 38% 32%, #a02020, #620e0e);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(140,20,20,0.4);">
+            <span style="font-family:'Cinzel',serif;font-size:10px;color:rgba(240,220,180,0.85);font-weight:600;">N</span>
+        </div>
+        <div>
+            <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:0.28em;color:rgba(240,220,180,0.9);font-weight:600;">NOCTRA</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:0.2em;color:rgba(201,168,76,0.5);font-style:italic;">Investigation Bureau</div>
+        </div>
+    </div>
+    
+    <!-- Investigator info (top right, subtle) -->
+    <div style="position:absolute;top:24px;right:32px;z-index:30;display:flex;align-items:center;gap:20px;">
+        <span id="hub-user-codename" style="font-family:'Courier Prime',monospace;font-size:11px;letter-spacing:0.1em;color:rgba(201,168,76,0.4);text-transform:uppercase;"></span>
+        <button id="btn-logout" style="background:none;border:1px solid rgba(201,168,76,0.15);color:rgba(201,168,76,0.4);font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;padding:6px 14px;cursor:pointer;transition:all 0.3s;">SEAL SESSION</button>
+    </div>
+    
+    <!-- Interactive Desk Items -->
+    <div id="desk-items" style="position:absolute;inset:0;z-index:20;">
+        
+        <!-- New Investigation (Notebook on desk) -->
+        <div class="desk-item" id="item-new-case" style="position:absolute;left:22%;top:58%;" data-tooltip="Open New Investigation">
+            <svg viewBox="0 0 120 80" width="120" height="80" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.6));">
+                <!-- Leather notebook -->
+                <rect x="5" y="5" width="110" height="70" rx="3" fill="#2a1808" stroke="#4a3018" stroke-width="1.5"/>
+                <rect x="12" y="10" width="96" height="60" rx="2" fill="#f0e8d5"/>
+                <line x1="20" y1="25" x2="100" y2="25" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                <line x1="20" y1="35" x2="100" y2="35" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                <line x1="20" y1="45" x2="100" y2="45" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                <line x1="20" y1="55" x2="80" y2="55" stroke="rgba(0,0,0,0.1)" stroke-width="0.5"/>
+                <text x="60" y="22" text-anchor="middle" font-family="'Cinzel',serif" font-size="7" fill="#3a2010" letter-spacing="2">NEW CASE</text>
+            </svg>
+            <div class="desk-item-label">Begin Investigation</div>
+        </div>
+        
+        <!-- Evidence Wall (board area) -->
+        <div class="desk-item" id="item-evidence-wall" style="position:absolute;left:35%;top:12%;" data-tooltip="Evidence Wall">
+            <div class="desk-item-label" style="font-size:14px;">Evidence Board</div>
+        </div>
+        
+        <!-- Archive (drawers area, left) -->
+        <div class="desk-item" id="item-archive" style="position:absolute;left:3%;top:65%;" data-tooltip="Case Archive">
+            <svg viewBox="0 0 100 120" width="80" height="96" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.6));">
+                <!-- Wooden drawer -->
+                <rect x="5" y="5" width="90" height="35" rx="2" fill="#3d2610" stroke="#2a1a08" stroke-width="1.5"/>
+                <rect x="40" y="16" width="20" height="6" rx="3" fill="#8a6830"/>
+                <rect x="5" y="42" width="90" height="35" rx="2" fill="#3d2610" stroke="#2a1a08" stroke-width="1.5"/>
+                <rect x="40" y="53" width="20" height="6" rx="3" fill="#8a6830"/>
+                <rect x="5" y="79" width="90" height="35" rx="2" fill="#3d2610" stroke="#2a1a08" stroke-width="1.5"/>
+                <rect x="40" y="90" width="20" height="6" rx="3" fill="#8a6830"/>
+            </svg>
+            <div class="desk-item-label">Case Archive</div>
+        </div>
+        
+        <!-- Memory Vault (cabinet, right side) -->
+        <div class="desk-item" id="item-memory" style="position:absolute;right:5%;top:40%;" data-tooltip="Memory Vault">
+            <svg viewBox="0 0 80 100" width="64" height="80" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.6));">
+                <!-- Filing cabinet -->
+                <rect x="5" y="5" width="70" height="90" rx="3" fill="#2a1a08" stroke="#4a3018" stroke-width="1.5"/>
+                <rect x="12" y="12" width="56" height="20" rx="1" fill="#3d2610"/>
+                <rect x="32" y="18" width="16" height="5" rx="2.5" fill="#8a6830"/>
+                <rect x="12" y="36" width="56" height="20" rx="1" fill="#3d2610"/>
+                <rect x="32" y="42" width="16" height="5" rx="2.5" fill="#8a6830"/>
+                <rect x="12" y="60" width="56" height="20" rx="1" fill="#3d2610"/>
+                <rect x="32" y="66" width="16" height="5" rx="2.5" fill="#8a6830"/>
+                <text x="40" y="88" text-anchor="middle" font-family="'Courier Prime',monospace" font-size="5" fill="#8a6830" letter-spacing="1">MEMORY</text>
+            </svg>
+            <div class="desk-item-label">Memory Vault</div>
+        </div>
+        
+        <!-- Magnifying Glass (search) -->
+        <div class="desk-item" id="item-search" style="position:absolute;right:25%;top:60%;" data-tooltip="Search Cases">
+            <svg viewBox="0 0 60 60" width="48" height="48" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.6));">
+                <circle cx="24" cy="24" r="16" fill="none" stroke="#8a6830" stroke-width="3"/>
+                <circle cx="24" cy="24" r="12" fill="rgba(120,160,180,0.06)" stroke="#7a5820" stroke-width="1"/>
+                <line x1="36" y1="36" x2="52" y2="52" stroke="#5a3810" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div class="desk-item-label">Search</div>
+        </div>
+        
+        <!-- Settings (small leather notebook) -->
+        <div class="desk-item" id="item-settings" style="position:absolute;right:8%;bottom:10%;" data-tooltip="Settings">
+            <svg viewBox="0 0 50 60" width="40" height="48" style="filter:drop-shadow(0 4px 12px rgba(0,0,0,0.6));">
+                <rect x="5" y="5" width="40" height="50" rx="2" fill="#1e1208" stroke="#3a2510" stroke-width="1"/>
+                <rect x="10" y="8" width="30" height="44" rx="1" fill="#f0e8d5" opacity="0.3"/>
+                <text x="25" y="34" text-anchor="middle" font-family="'Cinzel',serif" font-size="5" fill="#8a6830" letter-spacing="1">⚙</text>
+            </svg>
+            <div class="desk-item-label">Settings</div>
+        </div>
+    </div>
+    
+    <!-- Orion perched on desk -->
+    <div id="orion-hub" style="position:absolute;right:15%;bottom:25%;z-index:25;"></div>
+    
+    <!-- Bottom bar (subtle) -->
+    <div style="position:absolute;bottom:0;left:0;right:0;padding:14px 32px;z-index:30;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top, rgba(2,1,0,0.8), transparent);">
+        <span style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.12em;color:rgba(201,168,76,0.28);text-transform:uppercase;">Beyond the Obvious.</span>
+        <div style="display:flex;gap:20px;align-items:center;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#2a6a2a;display:inline-block;"></span>
+            <span style="font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.1em;color:rgba(201,168,76,0.28);text-transform:uppercase;">Systems Nominal</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

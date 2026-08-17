@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Memory Vault{% endblock %}
+{% block content %}
+<div id="memory-screen" class="screen-container memory-screen">
+    <div class="room-background"></div>
+
+    <a href="/hub" class="back-link">← Return to Bureau</a>
+
+    <div class="archive-header">
+        <div class="archive-title">
+            <h1>Memory Vault</h1>
+            <p>Recovered discoveries and connections carried forward between investigations.</p>
+        </div>
+    </div>
+
+    <div id="memory-vault" class="memory-vault">
+        <div class="panel-empty">The vault is quiet for now — nothing has been recorded yet.</div>
+    </div>
+
+    <div id="orion-memory" class="orion-slot orion-slot-small" style="right:4%;bottom:6%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/memory.js') }}"></script>
+{% endblock %}

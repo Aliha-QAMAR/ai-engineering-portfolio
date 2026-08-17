@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}NOCTRA — Case Report{% endblock %}
+{% block content %}
+<div id="report-screen" class="screen-container report-screen"
+     data-investigation-id="{{ investigation.id }}">
+    <div class="room-background"></div>
+
+    <a href="/investigation/{{ investigation.id }}" class="back-link no-print">← Back to Workspace</a>
+    <button id="btn-export-pdf" class="brass-button brass-button-sm export-pdf-btn no-print">Export PDF</button>
+
+    <div id="report-quicklook" class="report-quicklook no-print">
+        <div class="quicklook-title">Quick Look</div>
+        <div id="quicklook-status" class="quicklook-status">Loading…</div>
+        <div id="quicklook-confidence" class="quicklook-confidence"></div>
+        <div class="quicklook-nav">
+            <a href="#report-summary-section">Summary</a>
+            <a href="#report-metrics-section">Confidence &amp; Coverage</a>
+            <a href="#report-evidence-section">Evidence</a>
+            <a href="#report-timeline-section">Timeline</a>
+            <a href="#report-assessment-section">Assessment</a>
+        </div>
+    </div>
+
+    <div class="report-sheet paper-texture">
+        <div class="report-letterhead">
+            <div class="wax-seal wax-seal-sm">N</div>
+            <div>
+                <div class="report-org">NOCTRA — Intelligence Bureau</div>
+                <div class="report-classified">CONFIDENTIAL · OFFICIAL INVESTIGATION REPORT</div>
+            </div>
+        </div>
+
+        <div id="report-status-stamp-slot"></div>
+        <h1 class="report-case-name">{{ investigation.case_name }}</h1>
+        <div class="report-case-number">{{ investigation.case_number }}</div>
+
+        <div class="report-section" id="report-summary-section">
+            <div class="report-section-title">Summary</div>
+            <p class="report-summary">{{ investigation.description or 'No description recorded for this case.' }}</p>
+        </div>
+
+        <div class="report-section" id="report-metrics-section">
+            <div class="report-section-title">Confidence &amp; Coverage</div>
+            <div id="report-metrics" class="report-metrics">
+                <div class="panel-empty">Metrics will appear once evaluation data loads.</div>
+            </div>
+        </div>
+
+        <div class="report-section" id="report-evidence-section">
+            <div class="report-section-title">Evidence Reviewed</div>
+            <ul id="report-evidence" class="report-list">
+                <li class="panel-empty">No evidence on file.</li>
+            </ul>
+        </div>
+
+        <div class="report-section" id="report-timeline-section">
+            <div class="report-section-title">Timeline</div>
+            <ul id="report-timeline" class="report-list report-timeline-list">
+                <li class="panel-empty">No timeline steps recorded.</li>
+            </ul>
+        </div>
+
+        <div class="report-section" id="report-assessment-section">
+            <div class="report-section-title">Reasoning &amp; Recommendations</div>
+            <div id="report-assessment" class="report-assessment">Awaiting assessment.</div>
+        </div>
+
+        <div class="report-footer">
+            <div class="report-footer-line"></div>
+            <div class="report-footer-text">Prepared by NOCTRA · Beyond the Obvious. · Est. 2026</div>
+        </div>
+    </div>
+
+    <div id="orion-report" class="orion-slot orion-slot-small no-print" style="right:4%;bottom:6%;"></div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="module" src="{{ url_for('static', filename='js/investigation.js') }}"></script>
+{% endblock %}

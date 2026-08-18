@@ -1,14 +1,4 @@
-
-auth_bp = Blueprint('auth', __name__, url_prefix='/api/auth')
-
-@auth_bp.route('/register', methods=['POST'])
-def register():
-    data = request.get_json() or {}
-    codename = data.get('codename')
-    password = data.get('password')
-    
-    if not codename or not password:
-        return jsonify({'error': 'Codename and password required'}), 400
+rd required'}), 400
         
     existing_user = User.query.filter_by(codename=codename).first()
     if existing_user:

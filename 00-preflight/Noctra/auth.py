@@ -1,22 +1,4 @@
-rd required'}), 400
-        
-    existing_user = User.query.filter_by(codename=codename).first()
-    if existing_user:
-        return jsonify({'error': 'Codename already taken'}), 400
-        
-    new_user = User(
-        codename=codename,
-        password_hash=generate_password_hash(password),
-        clearance_level='alpha'
-    )
-    db_session.add(new_user)
-    db_session.commit()
-    
-    return jsonify({
-        'success': True,
-        'codename': new_user.codename,
-        'clearance_level': new_user.clearance_level
-    }), 201
+
 
 @auth_bp.route('/login', methods=['POST'])
 def login():

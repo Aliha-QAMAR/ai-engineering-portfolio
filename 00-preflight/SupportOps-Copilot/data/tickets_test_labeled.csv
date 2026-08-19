@@ -1,0 +1,31 @@
+ticket_id,customer_message,true_category,true_priority,true_product,true_refund_request
+1,I was charged twice for my order and need a refund.,billing,high,checkout,true
+2,My package has not arrived after ten days.,shipping,medium,order,false
+3,I cannot log in because my password reset email never arrived.,account_access,high,account portal,false
+4,The app crashes when I open the checkout page.,technical_bug,high,mobile app,false
+5,I received a damaged product and want a replacement or refund.,refund,high,product,true
+6,Please change my delivery address before the package ships.,shipping,medium,shipping service,false
+7,The payment keeps failing at checkout.,billing,high,checkout,false
+8,I want to cancel my subscription before renewal.,feature_request,medium,subscription,false
+9,My invoice shows the wrong amount.,billing,medium,billing portal,false
+10,The website returns a blank page after login.,technical_bug,high,website,false
+11,Can you help me regain access to my locked account?,account_access,high,account,false
+12,The order tracking link is not updating.,shipping,medium,tracking,false
+13,I need a refund because I was charged twice.,refund,high,payment,true
+14,Please add dark mode to the mobile app.,feature_request,low,mobile app,false
+15,My coupon code is not working at checkout.,billing,medium,checkout,false
+16,I did not receive the replacement item promised last week.,shipping,high,order,false
+17,The app freezes when I tap the profile tab.,technical_bug,medium,mobile app,false
+18,I need to update my email on the account.,account_access,low,account,false
+19,Please refund the shipping fee for this delayed order.,refund,high,shipping,true
+20,The subscription renewed even though I tried to cancel.,billing,high,subscription,true
+21,The portal shows an error when I try to submit payment.,technical_bug,high,billing portal,false
+22,My package was sent to the wrong address.,shipping,high,shipping,false
+23,I cannot reset my password and need access today.,account_access,urgent,account,false
+24,I want a refund because the item arrived broken.,refund,high,product,true
+25,There is a duplicate charge on my card statement.,billing,high,payment,true
+26,Please add a new reporting export feature.,feature_request,low,website,false
+27,I keep getting an invalid session message on login.,technical_bug,medium,website,false
+28,Where can I find my receipt and invoice history?,billing,low,billing portal,false
+29,My subscription is still active after cancellation.,billing,medium,subscription,false
+30,I need a status update on my missing parcel.,shipping,medium,tracking,false

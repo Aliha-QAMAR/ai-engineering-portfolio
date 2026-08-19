@@ -1,0 +1,12 @@
+{"ticket_id": 1, "ticket": "I was charged twice for my order.", "prompt": "zero_shot", "result": {"category": "Billing", "priority": "High", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 1, "ticket": "I was charged twice for my order.", "prompt": "detailed", "result": {"category": "Billing", "priority": "Urgent", "sentiment": "Negative", "sla_risk": "High"}}
+{"ticket_id": 1, "ticket": "I was charged twice for my order.", "prompt": "few_shot", "result": {"category": "Billing", "priority": "High", "sentiment": "Negative", "sla_risk": "High"}}
+{"ticket_id": 2, "ticket": "My package has not arrived after 10 days.", "prompt": "zero_shot", "result": {"category": "Shipping", "priority": "High", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 2, "ticket": "My package has not arrived after 10 days.", "prompt": "detailed", "result": {"category": "Shipping", "priority": "Medium", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 2, "ticket": "My package has not arrived after 10 days.", "prompt": "few_shot", "result": {"category": "Shipping", "priority": "Medium", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 3, "ticket": "I forgot my account password and cannot log in.", "prompt": "zero_shot", "result": {"category": "Account", "priority": "High", "sentiment": "Neutral", "sla_risk": "Low"}}
+{"ticket_id": 3, "ticket": "I forgot my account password and cannot log in.", "prompt": "detailed", "result": {"category": "Account", "priority": "Medium", "sentiment": "Neutral", "sla_risk": "Low"}}
+{"ticket_id": 3, "ticket": "I forgot my account password and cannot log in.", "prompt": "few_shot", "result": {"category": "Account", "priority": "Medium", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 4, "ticket": "The product I received is damaged.", "prompt": "zero_shot", "result": {"category": "Returns", "priority": "High", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 4, "ticket": "The product I received is damaged.", "prompt": "detailed", "result": {"category": "Returns", "priority": "Medium", "sentiment": "Negative", "sla_risk": "Medium"}}
+{"ticket_id": 4, "ticket": "The product I received is damaged.", "prompt": "few_shot", "result": {"category": "Returns", "priority": "Medium", "sentiment": "Negative", "sla_risk": "Medium"}}

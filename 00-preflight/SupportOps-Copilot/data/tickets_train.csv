@@ -1,0 +1,31 @@
+ticket_id,customer_message,true_category,true_priority,true_product,true_refund_request
+1,I was charged twice for my order.,billing,high,checkout,true
+2,My package has not arrived after 10 days.,shipping,medium,order,false
+3,I forgot my account password and cannot log in.,account_access,high,account,false
+4,The product I received is damaged.,refund,high,product,true
+5,I want to change my delivery address.,shipping,medium,shipping,false
+6,My payment keeps failing during checkout.,billing,high,checkout,false
+7,I received the wrong item in my order.,refund,high,order,true
+8,How can I cancel my subscription?,feature_request,medium,subscription,false
+9,I want a copy of my invoice.,billing,low,billing portal,false
+10,My account has been locked after multiple login attempts.,account_access,high,account,false
+11,The mobile app crashes whenever I open it.,technical_bug,high,mobile app,false
+12,I haven't received my refund yet.,refund,high,payment,true
+13,I want to update my email address.,account_access,low,account,false
+14,The discount coupon is not working.,billing,medium,checkout,false
+15,I need to speak with a customer support agent immediately.,other,medium,support,false
+16,My package was delivered to the wrong address.,shipping,high,shipping,false
+17,The website shows an error when I try to pay.,technical_bug,high,website,false
+18,I need a refund for the damaged item I received.,refund,high,product,true
+19,Please add dark mode to the mobile app.,feature_request,low,mobile app,false
+20,My order tracking link is not updating.,shipping,medium,tracking,false
+21,My subscription renewed after I cancelled it.,billing,high,subscription,true
+22,I cannot reset my password and need access today.,account_access,urgent,account,false
+23,I was charged twice on my card statement.,billing,high,payment,true
+24,The app freezes when I tap the profile tab.,technical_bug,medium,mobile app,false
+25,Please send my invoice to my email again.,billing,low,billing portal,false
+26,My shipment is delayed and I need a status update.,shipping,medium,order,false
+27,I need a replacement because the item arrived broken.,refund,high,product,true
+28,The website keeps logging me out unexpectedly.,technical_bug,medium,website,false
+29,I want to cancel my plan before the next renewal.,feature_request,medium,subscription,false
+30,My order refund is taking too long to arrive.,refund,high,payment,true

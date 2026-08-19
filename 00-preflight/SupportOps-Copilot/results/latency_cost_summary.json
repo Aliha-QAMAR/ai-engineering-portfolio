@@ -1,0 +1,7 @@
+{
+  "average_latency_seconds": 0.0,
+  "median_latency_seconds": 0.0,
+  "estimated_cost_per_ticket_usd": 0.002,
+  "estimated_cost_for_dataset_usd": 0.06,
+  "tickets_evaluated": 30
+}

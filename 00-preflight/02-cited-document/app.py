@@ -1,14 +1,12 @@
 import streamlit as st
 import os
 
-# Set page configuration early
 st.set_page_config(
     page_title="Cited Document Assistant",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Core imports
 from core.vector_db import LiteVectorDB
 from core.embeddings import EmbeddingManager
 from ui.components import inject_global_styles
@@ -30,10 +28,8 @@ if "embedding_manager" not in st.session_state:
 if "current_page" not in st.session_state:
     st.session_state.current_page = "Landing"
 
-# 2. Inject global CSS style overrides
 inject_global_styles()
 
-# 3. Routing Controller
 current_page = st.session_state.current_page
 
 if current_page == "Landing":
@@ -47,12 +43,9 @@ if current_page == "Landing":
     """, unsafe_allow_html=True)
     show_landing_page()
 else:
-    # Render app with sidebar navigation
     with st.sidebar:
         st.markdown('<div class="sidebar-brand">Workspace Admin</div>', unsafe_allow_html=True)
         
-        # Navigation buttons styled to look like sleek SaaS links
-        # We track navigation using session state
         nav_options = [
             ("Dashboard", "Dashboard"),
             ("Upload Documents", "Upload"),
@@ -67,10 +60,7 @@ else:
         
         for page_name, display_label in nav_options:
             is_active = current_page == page_name
-            # Render a custom sidebar button style
             style_class = "button-active" if is_active else "button-inactive"
-            
-            # Using custom container to inject specific background/colors for active button
             if is_active:
                 st.markdown(f"""
                     <style>
@@ -90,8 +80,6 @@ else:
         if st.button("← Exit Workspace", key="exit_workspace_btn", use_container_width=True):
             st.session_state.current_page = "Landing"
             st.rerun()
-
-    # Route Sub-Pages
     vector_db = st.session_state.vector_db
     embedding_manager = st.session_state.embedding_manager
     
@@ -129,7 +117,6 @@ else:
         st.markdown("<div class='button-warning'>", unsafe_allow_html=True)
         if st.button("Reset Vector Database Index", key="btn_reset_db"):
             vector_db.clear_database()
-            # Clear chat history too
             st.session_state.chat_sessions = [{"id": 0, "title": "New Conversation", "messages": []}]
             st.success("Workspace database and chat sessions successfully cleared.")
             time.sleep(0.8)

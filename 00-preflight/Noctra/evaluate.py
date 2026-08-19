@@ -1,12 +1,3 @@
-"""
-NOCTRA — Evaluation / Case Report builder (REAL)
-
-Reconstructs the report from what the agent actually found (stored on each
-InvestigationLog.data) rather than from a step count. Returns the metric keys
-the existing report page already reads, PLUS rich fields the report can show:
-executive summary, key findings, counter-hypothesis, recommendations, charts,
-timeline and relationship graph.
-"""
 
 import json
 from backend.models import InvestigationLog, Evidence, Investigation

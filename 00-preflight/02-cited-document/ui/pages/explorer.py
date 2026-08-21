@@ -5,15 +5,10 @@ import time
 import pandas as pd
 
 def show_explorer_page(vector_db, embedding_manager):
-    """
-    Renders a dedicated RAG search testing sandbox.
-    """
     render_back_navigation("Retrieval Explorer")
 
     st.markdown("<h1>Retrieval Explorer</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #6B7068;'>Run queries to test search performance, inspect vector similarity parameters, and trace ranking structures.</p>", unsafe_allow_html=True)
-
-    # Scoping parameters
     docs = vector_db.get_all_documents()
     
     col_left, col_right = st.columns([1, 2])

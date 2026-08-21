@@ -2,17 +2,12 @@ import streamlit as st
 from ui.components import render_back_navigation
 
 def show_about_page():
-    """
-    Renders the RAG Pipeline Architecture details page.
-    """
     render_back_navigation("About Pipeline")
 
     st.markdown("<h1>Pipeline Architecture</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #6B7068;'>A detailed technical reference of the Cited Document Assistant RAG ingestion and verification loops.</p>", unsafe_allow_html=True)
 
-    # 1. Structural Pipeline Diagram
-    st.subheader("RAG Workflow Visualizer")
-    
+    st.subheader("RAG Workflow Visualizer")    
     st.markdown("""
         <style>
             .flow-container {
@@ -73,7 +68,6 @@ def show_about_page():
         </div>
     """, unsafe_allow_html=True)
 
-    # 2. Key Terms Cards
     st.subheader("Core Pipeline Concepts")
     
     col1, col2 = st.columns(2)

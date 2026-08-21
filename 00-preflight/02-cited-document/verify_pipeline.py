@@ -12,7 +12,6 @@ from core.llm_engine import GroundedLLMEngine
 def main():
     print("=== Initializing Pipeline Verification ===")
     
-    # 1. Initialize DB and Embedder
     db = LiteVectorDB("test_workspace.db")
     em = EmbeddingManager()
     retriever = RAGRetriever(db, em)

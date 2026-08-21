@@ -6,12 +6,8 @@ import datetime
 import time
 
 def show_chat_page(vector_db, embedding_manager):
-    """
-    Renders the 3-column Document Review Workspace (Chat Assistant).
-    """
     render_back_navigation("Chat Assistant")
 
-    # Initialize chat history and retriever
     if "chat_sessions" not in st.session_state:
         st.session_state.chat_sessions = [{"id": 0, "title": "New Conversation", "messages": []}]
     if "active_session_idx" not in st.session_state:
@@ -26,16 +22,9 @@ def show_chat_page(vector_db, embedding_manager):
     
     retriever = RAGRetriever(vector_db, embedding_manager)
     engine = GroundedLLMEngine()
-
-    # Get all documents for scoping
     docs = vector_db.get_all_documents()
-
-    # Define the 3-column Layout
     col_left, col_center, col_right = st.columns([1, 2, 1])
 
-    # ==========================================
-    # COLUMN 1: DOCUMENT EXPLORER (LEFT PANEL)
-    # ==========================================
     with col_left:
         st.markdown("<h3 style='margin-top:0;'>Document Explorer</h3>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:0.8rem; color:#6B7068;'>Filter the retrieval context by selecting specific documents.</p>", unsafe_allow_html=True)
@@ -61,29 +50,20 @@ def show_chat_page(vector_db, embedding_manager):
                     scoped_doc_ids.append(doc["id"])
             st.markdown("</div>", unsafe_allow_html=True)
             
-            # Show active scope count
             st.markdown(f"""
                 <div style='margin-top: 1rem; font-size:0.75rem; color:#6B7068; background-color:#F3EFE9; padding:0.5rem; border-radius:4px;'>
                     Active Context Scope: <strong>{len(scoped_doc_ids)} of {len(docs)} files</strong>
                 </div>
             """, unsafe_allow_html=True)
-
-        # In-page Settings
         st.markdown("<hr style='border:0; border-top:1px solid #DFDAD0; margin:1.5rem 0;'>", unsafe_allow_html=True)
         st.subheader("Retrieval Tuning")
         chat_top_k = st.slider("Top K Chunks", min_value=1, max_value=10, value=5, step=1, key="chat_top_k")
         chat_threshold = st.slider("Similarity Threshold", min_value=0.0, max_value=1.0, value=0.45, step=0.05, key="chat_threshold")
         
-        # Debug toggle
         st.session_state.debug_mode = st.toggle("Debug Panel Info", value=st.session_state.debug_mode)
-
-    # ==========================================
-    # COLUMN 2: CONVERSATION WORKSPACE (CENTER PANEL)
-    # ==========================================
     with col_center:
         st.markdown("<h3 style='margin-top:0; text-align:center; font-family:Lora;'>Conversation Workspace</h3>", unsafe_allow_html=True)
         
-        # Scrollable message area
         chat_container = st.container()
         
         with chat_container:
@@ -112,8 +92,6 @@ def show_chat_page(vector_db, embedding_manager):
                             </div>
                         </div>
                     """, unsafe_allow_html=True)
-
-        # Suggested prompt options floating above input
         st.markdown("<div style='margin-top: 2rem;'></div>", unsafe_allow_html=True)
         suggestions = ["What are the key policy requirements?", "Summarize the uploaded documents", "Are there any compliance deadlines?"]
         scols = st.columns(3)
@@ -124,17 +102,13 @@ def show_chat_page(vector_db, embedding_manager):
                 if st.button(sug, key=f"sug_btn_{i}", use_container_width=True):
                     clicked_suggestion = sug
 
-        # Chat Input Form
-        # To handle clear inputs neatly, we use a key and submit handlers
         with st.form(key="chat_input_form", clear_on_submit=True):
             user_query = st.text_input("Ask a question about your documents...", key="user_query_input", placeholder="Type query and press enter...")
             submit_button = st.form_submit_button("Ask Assistant", use_container_width=True)
 
-        # If a suggestion or text input was submitted
         active_query = clicked_suggestion or (user_query if submit_button else None)
 
         if active_query:
-            # 1. Append user query
             timestamp = datetime.datetime.now().strftime("%I:%M %p")
             messages.append({
                 "role": "user",
@@ -142,13 +116,10 @@ def show_chat_page(vector_db, embedding_manager):
                 "timestamp": timestamp
             })
             st.rerun()
-
-        # Generate Assistant response if last message is from user
         if messages and messages[-1]["role"] == "user":
             user_msg = messages[-1]["content"]
             
             with chat_container:
-                # Setup visual spinner and empty block
                 with st.spinner("Retrieving document context and generating answer..."):
                     # Step A: Retrieval
                     retrieval_res = retriever.retrieve(
@@ -158,11 +129,8 @@ def show_chat_page(vector_db, embedding_manager):
                         doc_ids=scoped_doc_ids
                     )
                     
-                    # Step B: LLM Generation
-                    # Set up placeholder for stream
                     stream_placeholder = st.empty()
                     
-                    # Stream generator yield loop
                     answer_buffer = ""
                     generator = engine.generate_response_stream(
                         query=user_msg,
@@ -172,7 +140,6 @@ def show_chat_page(vector_db, embedding_manager):
                     
                     for token in generator:
                         answer_buffer += token
-                        # Render partially streamed response in chat styling
                         stream_placeholder.markdown(f"""
                             <div class="chat-bubble-container assistant">
                                 <div class="chat-bubble">
@@ -182,7 +149,6 @@ def show_chat_page(vector_db, embedding_manager):
                             </div>
                         """, unsafe_allow_html=True)
                         
-                    # Step C: Evaluate final details
                     response_details = engine.generate_response_details(
                         query=user_msg,
                         chunks=retrieval_res["chunks"],
@@ -202,14 +168,10 @@ def show_chat_page(vector_db, embedding_manager):
                     
             st.rerun()
 
-    # ==========================================
-    # COLUMN 3: EVIDENCE & CITATION PANEL (RIGHT PANEL)
-    # ==========================================
     with col_right:
         st.markdown("<h3 style='margin-top:0;'>Evidence Panel</h3>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:0.8rem; color:#6B7068;'>Citations, source texts, similarity parameters, and grounding indices.</p>", unsafe_allow_html=True)
 
-        # Get last assistant message to retrieve evidence
         assistant_msgs = [m for m in messages if m["role"] == "assistant"]
         
         if not assistant_msgs:
@@ -223,8 +185,6 @@ def show_chat_page(vector_db, embedding_manager):
             metrics = last_msg.get("metrics", {})
             diag = last_msg.get("diagnostics", {})
             chunks = last_msg.get("retrieved_chunks", [])
-            
-            # Grounding Status Badge
             status = metrics.get("grounding_status", "Unknown")
             status_color = "#606C5A" if "Verified" in status else "#D98A7B"
             
@@ -234,7 +194,6 @@ def show_chat_page(vector_db, embedding_manager):
                 </div>
             """, unsafe_allow_html=True)
 
-            # Metadata Indicators
             st.markdown(f"""
                 <div class="premium-card" style="padding: 1rem !important; margin-bottom: 1rem; font-size:0.8rem;">
                     <div style="display:flex; justify-content:space-between; margin-bottom: 0.4rem;">
@@ -256,7 +215,6 @@ def show_chat_page(vector_db, embedding_manager):
                 </div>
             """, unsafe_allow_html=True)
 
-            # Retrieved source text chunks
             st.subheader("Citations & Raw Chunks")
             
             if not chunks:
@@ -274,15 +232,11 @@ def show_chat_page(vector_db, embedding_manager):
                                 <strong>Chunk ID:</strong> #{chunk['chunk_index']}
                             </div>
                         """, unsafe_allow_html=True)
-
-            # Get last user query for debug log
             last_user_query = ""
             for m in reversed(messages):
                 if m["role"] == "user":
                     last_user_query = m["content"]
                     break
-
-            # Debug Mode expansion
             if st.session_state.debug_mode:
                 st.markdown("<hr style='border:0; border-top:1px solid #DFDAD0; margin:1rem 0;'>", unsafe_allow_html=True)
                 st.subheader("Debug Telemetry")

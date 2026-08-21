@@ -3,9 +3,6 @@ from ui.components import render_metric_card
 import time
 
 def show_dashboard_page(vector_db, embedding_manager):
-    """
-    Renders the primary workspace dashboard.
-    """
     st.markdown("<h1>Workspace Dashboard</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #6B7068;'>Workspace administration, database indexing status, and systems metrics dashboard.</p>", unsafe_allow_html=True)
     

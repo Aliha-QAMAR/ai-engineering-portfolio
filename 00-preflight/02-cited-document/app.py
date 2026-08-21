@@ -20,7 +20,6 @@ from ui.pages.history import show_history_page
 from ui.pages.evaluation import show_evaluation_page
 from ui.pages.about import show_about_page
 
-# 1. Initialize DB and Embeddings Managers in Session State
 if "vector_db" not in st.session_state:
     st.session_state.vector_db = LiteVectorDB(db_path="workspace.db")
 if "embedding_manager" not in st.session_state:
@@ -33,7 +32,6 @@ inject_global_styles()
 current_page = st.session_state.current_page
 
 if current_page == "Landing":
-    # Render full-width landing page, collapse/hide sidebar
     st.markdown("""
         <style>
             section[data-testid="stSidebar"] {
@@ -111,7 +109,6 @@ else:
         st.markdown("<h1>Workspace Settings</h1>", unsafe_allow_html=True)
         st.markdown("<p style='color: #6B7068;'>Manage API integrations and reset database state.</p>", unsafe_allow_html=True)
         
-        # Reset DB Action
         st.subheader("Database Operations")
         st.markdown("<p style='font-size:0.85rem; color:#6B7068;'>Clears all document collections, embeddings, and workspace indexes. This action is irreversible.</p>", unsafe_allow_html=True)
         st.markdown("<div class='button-warning'>", unsafe_allow_html=True)
@@ -122,8 +119,6 @@ else:
             time.sleep(0.8)
             st.rerun()
         st.markdown("</div>", unsafe_allow_html=True)
-        
-        # Simulated API Settings
         st.subheader("Model Integrations")
         st.markdown("<p style='font-size:0.85rem; color:#6B7068;'>Configure external LLM providers. By default, workspace operates local extractive synthesis.</p>", unsafe_allow_html=True)
         st.text_input("OpenAI API Key (Optional)", type="password", placeholder="sk-...")

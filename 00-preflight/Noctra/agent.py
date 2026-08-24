@@ -1,18 +1,4 @@
-"""
-NOCTRA — Investigation Agent (REAL)
-
-Two engines, one contract:
-
-  • LLM engine (an OpenAI key is present): a true tool-calling agent loop.
-    The model plans and *requests* safe tools; the backend validates each
-    request (allow-listed tool + allow-listed evidence file), executes the
-    real tool, and feeds the result back. Every call is logged and streamed.
-
-  • Deterministic engine (no key): runs the same real safe tools over the
-    evidence in a fixed forensic order, producing genuine findings so the
-    platform works immediately — no "mock execution" anywhere.
-
-Any failure in the LLM engine falls back to the deterministic engine, so an
+ls back to the deterministic engine, so an
 investigation always completes with real, logged results.
 """
 

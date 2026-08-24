@@ -1,10 +1,3 @@
-/*
- * Dearly — front-end behaviour.
- * Speech features use the browser's built-in Web Speech API, so no
- * external AI key or network call is required. On browsers that don't
- * support it (e.g. Firefox for dictation), the buttons degrade
- * gracefully with a short message instead of throwing an error.
- */
 
 const DearlySpeech = (function () {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;

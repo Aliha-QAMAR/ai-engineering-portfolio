@@ -1,14 +1,4 @@
-import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker, declarative_base
-from contextlib import contextmanager
-
-from backend.config import Config
-
-engine = create_engine(Config.DATABASE_URL)
-db_session = scoped_session(sessionmaker(autocommit=False,
-                                         autoflush=False,
-                                         bind=engine))
+e))
 
 Base = declarative_base()
 Base.query = db_session.query_property()

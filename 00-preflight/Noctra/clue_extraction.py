@@ -1,12 +1,3 @@
-"""Candidate-clue extraction (NOCTRA Phase 2).
-
-Deterministic, pure-stdlib heuristics that turn a piece of evidence into a
-handful of *candidate* clues. Nothing here confirms anything — the investigator
-decides. Works fully in demo mode (no API key). When an OpenAI key is present
-the caller may enrich these, but the deterministic path is always the fallback.
-"""
-import os
-import re
 
 AMOUNT_RE = re.compile(r'\$?\s?(\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d{4,}(?:\.\d+)?)')
 ENTITY_RE = re.compile(r'\b([A-Z][a-z]{2,}(?:\s+(?:[A-Z][a-z]{2,}|Holdings|Group|LLC|Inc|Ltd|Partners|Procurement|Capital|Systems))+)\b')

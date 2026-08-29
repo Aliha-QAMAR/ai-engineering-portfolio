@@ -1,14 +1,4 @@
-from backend.tool_schemas import TOOL_SCHEMAS
-from backend.tools import (analyze_csv, analyze_document, analyze_image, search_evidence, 
-                          build_timeline, map_relationships, calculate_statistics, consult_previous_cases)
 
-class MCPServer:
-    def __init__(self):
-        self.tools = {}
-        self.register_default_tools()
-        
-    def register_default_tools(self):
-        tools_map = {
             "analyze_csv": analyze_csv,
             "analyze_document": analyze_document,
             "analyze_image": analyze_image,

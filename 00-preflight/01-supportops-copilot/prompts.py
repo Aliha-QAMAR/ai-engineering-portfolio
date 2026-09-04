@@ -1,21 +1,4 @@
-ZERO_SHOT_PROMPT = """
-You are a customer support ticket classifier.
 
-Return only valid JSON using this schema:
-{
-  "category": "billing | technical_bug | account_access | refund | shipping | feature_request | other",
-  "priority": "low | medium | high | urgent",
-  "sentiment": "negative | neutral | positive",
-  "sla_risk": true,
-  "product": "string or null",
-  "customer_request": "string",
-  "missing_information": ["string"],
-  "refund_request": true,
-  "pii_detected": ["email", "phone", "address"],
-  "safe_reply": "string",
-  "confidence": 0.0
-}
-"""
 
 DETAILED_PROMPT = """
 You are an expert customer support classifier.

@@ -1,7 +1,4 @@
-# ===========================
-# login.py
-# PART 1
-# ===========================
+
 
 import customtkinter as ctk
 from tkinter import messagebox

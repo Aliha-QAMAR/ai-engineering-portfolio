@@ -2,11 +2,7 @@ import sqlite3
 import os
 DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dearly.db")
 
-def get_db():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
-    return conn
+
 
 
 def init_db():
@@ -45,17 +41,7 @@ def init_db():
         )
     """)
 
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS journals (
-            id TEXT PRIMARY KEY,
-            owner_id TEXT NOT NULL,
-            title TEXT,
-            topic TEXT,
-            body TEXT NOT NULL,
-            visibility TEXT NOT NULL DEFAULT 'private',
-            created_at TEXT NOT NULL,
-            FOREIGN KEY(owner_id) REFERENCES users(id)
-        )
+   
     """)
 
     cur.execute("""

@@ -8,7 +8,7 @@ from routes.auth import auth_bp
 from routes.letters import letters_bp
 from routes.journals import journals_bp
 from routes.penpals import penpals_bp
-from routes.ai import ai_bp
+
 
 load_dotenv()
 

@@ -1,10 +1,7 @@
 # Dearly — complete build (Phases 1–4)
 
-## Kaise chalayein (Windows PowerShell)
 
-**Zaroori: isolated virtual environment (venv) use karein — apne global Python mein direct install na karein.**
-Global Python mein aksar bohot saari doosri libraries (jaise torch, scipy) pehle se installed hoti hain
-jo conflict/hang create kar sakti hain.
+
 
 1. Python 3.9–3.12 hona chahiye (3.13 pe kabhi kabhi kuch libraries ke naye versions issue karte hain).
 2. Project folder mein jaayein aur venv banayein:

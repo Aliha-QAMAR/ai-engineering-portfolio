@@ -65,19 +65,7 @@ Do not add markdown backticks outside JSON.
                 ]
             }
 
-    def replan(self, current_plan: dict, surprise_reason: str) -> dict:
-        print(f"\n [RE-PLANNING TRIGGERED] Reason: {surprise_reason}")
-        prompt = f"""
-Current Plan: {json.dumps(current_plan)}
-Surprise/Unexpected Result: {surprise_reason}
-Update the pending steps of the plan to adapt to this new discovery.
-Return ONLY valid JSON with the same structure.
-        """
-        response = self.client.chat.completions.create(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.2
-        )
+    
         try:
             content = response.choices[0].message.content.strip()
             if content.startswith("```json"):

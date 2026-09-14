@@ -3,12 +3,6 @@ import json
 import pandas as pd
 from dotenv import load_dotenv
 
-from extract import analyze_ticket
-from prompts import (
-    ZERO_SHOT_PROMPT,
-    DETAILED_PROMPT,
-    FEW_SHOT_PROMPT
-)
 
 load_dotenv()
 

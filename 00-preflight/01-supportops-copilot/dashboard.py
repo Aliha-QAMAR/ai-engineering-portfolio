@@ -52,14 +52,7 @@ def _normalize_label(value: str | None, allowed_values: list[str], fallback: str
     return aliases.get(normalized, fallback)
 
 
-def _detect_pii(ticket: str) -> list[str]:
-    detected: list[str] = []
 
-    if re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", ticket):
-        detected.append("email")
-
-    if re.search(r"(?:\+?\d[\d\s().-]{7,}\d)", ticket):
-        detected.append("phone")
 
     address_keywords = [
         "street",
